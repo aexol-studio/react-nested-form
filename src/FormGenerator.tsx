@@ -3,7 +3,7 @@ import * as components from './components';
 
 import { FieldDescription } from './fields';
 
-import {FieldWrapper} from './FieldWrapper';
+import { FieldWrapper } from './FieldWrapper';
 import SubmitComponent from './SubmitComponent';
 
 const fieldElements = {
@@ -111,6 +111,9 @@ export class Form extends React.Component<FormGeneratorInterface> {
       className = 'FormGen'
     } = this.props;
     const { Submit = SubmitComponent } = this.props;
+    if(new Set([...fields.map(f=>f.name)]).size !== fields.length){
+      throw new Error("Name properties of form fields must be unique!")
+    }
     const fieldsRender = fields.map((f, i) => {
       let ftype = f.fieldType;
       const RenderField = fieldElements[ftype] as React.ComponentType<any>;
@@ -118,7 +121,12 @@ export class Form extends React.Component<FormGeneratorInterface> {
         <AlternativeWrapper key={i}>
           <RenderField
             name={f.name}
-            onChange={this.modifyField}
+            onChange={(e) => {
+              this.modifyField({
+                name: f.name,
+                value: e
+              });
+            }}
             value={this.state.fields[f.name]}
             {...f.content}
           />

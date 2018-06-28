@@ -24,7 +24,7 @@ export class Tag extends React.Component<
     });
   };
 
-  preventEnter = (e, fieldValue?) => {
+  preventEnter = (e) => {
     if (e.keyCode === 13) {
       e.stopPropagation();
       e.preventDefault();
@@ -47,8 +47,8 @@ export class Tag extends React.Component<
     let { value, onChange, unique = true } = this.props;
     const { inputValue } = this.state;
     let fieldValue = value || [];
-    if (inputValue.length && (!fieldValue.find((f) => f.value === inputValue) || !unique)) {
-      fieldValue = [...fieldValue, { label: inputValue, value: inputValue }];
+    if (inputValue.length && (!fieldValue.find((f) => f === inputValue) || !unique)) {
+      fieldValue = [...fieldValue, inputValue];
       this.setState({
         inputValue: ''
       });
@@ -81,17 +81,17 @@ export class Tag extends React.Component<
           })}
         >
           <div className={styles.holderValue}>
-            {fieldValue.map(({ value, label }, index) => (
+            {fieldValue.map((value, index) => (
               <div
                 className={styles.showValue}
                 key={index}
                 onClick={(e) => {
                   e.stopPropagation();
-                  const newValue = fieldValue.filter((i) => i.value !== value);
+                  const newValue = fieldValue.filter((i) => i !== value);
                   onChange(newValue);
                 }}
               >
-                <span className={styles.valueChosen}>{label}</span>
+                <span className={styles.valueChosen}>{value}</span>
                 <span className={styles.Delete}>×</span>
               </div>
             ))}

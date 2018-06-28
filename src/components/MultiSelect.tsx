@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as classnames from 'classnames';
 import { FieldDefinition } from '../fields';
-
-let styles = require('./MultiSelect.css');
+import { Multiselect as importedStyles } from './style';
 
 export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
   state = {
@@ -23,6 +22,11 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
   };
   addValue = (value) => {
     let { value: fieldValue = [], onChange, multi = false } = this.props;
+    if(!fieldValue){
+      if(multi){
+        fieldValue = []
+      }
+    }
     let vals: any = value;
     if (multi && vals) {
       vals = Array.from(new Set([...fieldValue, vals]));
@@ -49,8 +53,14 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
     options = options.map((o) => ({ ...o, label: `${o.label}` }));
     options.sort((a, b) => a.label.localeCompare(b.label));
     options = [{ label: '-------------', value: null }, ...options];
+    let styles = {
+      ...importedStyles
+    }
     if (overrideStyles) {
-      styles = overrideStyles;
+      styles = {
+        ...styles,
+        ...overrideStyles
+      };
     }
     if (!fieldValue) {
       fieldValue = null;
@@ -60,7 +70,6 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
     }
     const selectObject = (
       <div className={styles.holderValue}>
-        {console.log(fieldValue)}
         {fieldValue ? (
           multi ? (
             fieldValue.map((value, index) => (

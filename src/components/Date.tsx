@@ -23,13 +23,17 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
         ...overrideStyles
       };
     }
+    const val = value as moment.Moment;
+    console.log(val);
     const months = moment.months().map((v, i) => ({ label: v, value: i + 1 }));
-    const currentMonth = value.month() + 1;
-    const currentYear = value.year();
-    const currentDay = value.date();
-    const daysInMonth = new Array(value.daysInMonth())
+    const currentMonth = val.month() + 1;
+    const currentYear = val.year();
+    const currentDay = val.date();
+    console.log(val);
+    const daysInMonth = new Array(val.daysInMonth())
       .fill(0)
-      .map((v, i) => ({ label: i + 1, value: i + 1 }));
+      .map((v, i) => ({ label: `${i + 1}`, value: i + 1 }));
+    console.log(daysInMonth);
     const yearsToShow = new Array(maxYear - minYear).fill(0).map((y, i) => ({
       label: y + minYear + i,
       value: y + minYear + i
@@ -42,7 +46,7 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           options={daysInMonth}
           value={daysInMonth.find((m) => m.value === currentDay).value}
           onChange={(e) => {
-            onChange(value.date(e.value));
+            onChange(val.date(e));
           }}
         />
         <MultiSelect
@@ -50,7 +54,7 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           options={months}
           value={months.find((m) => m.value === currentMonth).value}
           onChange={(e) => {
-            onChange(value.month(e.value - 1));
+            onChange(val.month(e - 1));
           }}
         />
         <MultiSelect
@@ -58,7 +62,7 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           options={yearsToShow}
           value={yearsToShow.find((m) => m.value === currentYear).value}
           onChange={(e) => {
-            onChange(value.year(e.value));
+            onChange(val.year(e));
           }}
         />
       </div>

@@ -1,5 +1,8 @@
 export type SelectInterface = {
-  options: Array<any>;
+  options: Array<{
+    label: string;
+    value: any;
+  }>;
   style?: Object;
   placeholder?: string;
   styles?: {
