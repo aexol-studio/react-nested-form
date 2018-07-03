@@ -19,7 +19,7 @@ export class Checkbox extends React.Component<FieldDefinition<'boolean'>> {
       <div
         className={styles.Checkbox}
         onClick={() => {
-          onChange(true);
+          onChange(!value);
         }}
       >
         <label>{name}</label>
