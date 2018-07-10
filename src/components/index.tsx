@@ -1,10 +1,13 @@
-export * from './Autosuggest'
-export * from './Checkbox'
-export * from './Input'
-export * from './InputFile'
-export * from './MultiSelect'
-export * from './Tag'
-export * from './Textarea'
-export * from './Date'
-export * from './Time'
-export * from './Datetime'
+export * from './Autosuggest';
+export * from './Checkbox';
+export * from './Input';
+export * from './InputFile';
+export * from './MultiSelect';
+export * from './Tag';
+export * from './Textarea';
+export * from './Date';
+export * from './Time';
+export * from './Datetime';
+import * as styles from './style';
+import * as types from './types';
+export { styles, types };
