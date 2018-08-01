@@ -22,9 +22,9 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
   };
   addValue = (value) => {
     let { value: fieldValue = [], onChange, multi = false } = this.props;
-    if(!fieldValue){
-      if(multi){
-        fieldValue = []
+    if (!fieldValue) {
+      if (multi) {
+        fieldValue = [];
       }
     }
     let vals: any = value;
@@ -55,7 +55,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
     options = [{ label: '-------------', value: null }, ...options];
     let styles = {
       ...importedStyles
-    }
+    };
     if (overrideStyles) {
       styles = {
         ...styles,
@@ -81,7 +81,9 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
                 key={index}
               >
                 <span className={styles.valueChoosen}>
-                  {value && options.find((o) => o.value === value).label}
+                  {value && options.find((o) => o.value === value)
+                    ? options.find((o) => o.value === value).label
+                    : 'Error - no value'}
                 </span>
                 {multi && (
                   <span
@@ -105,7 +107,9 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
               })}
             >
               <span className={styles.valueChoosen}>
-                {options.find((o) => o.value === fieldValue).label}
+                {options.find((o) => o.value === fieldValue)
+                  ? options.find((o) => o.value === fieldValue).label
+                  : 'Error - no value'}
               </span>
             </div>
           )
