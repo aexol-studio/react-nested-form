@@ -1,3 +1,4 @@
+import * as styles from '../style/MultiSelect';
 export type SelectInterface = {
   options: Array<{
     label: string;
@@ -5,21 +6,7 @@ export type SelectInterface = {
   }>;
   style?: Object;
   placeholder?: string;
-  styles?: {
-    MultiSelect: string;
-    holderSelect: string;
-    Change: string;
-    holderValue: string;
-    showValue: string;
-    valueChoosen: string;
-    Delete: string;
-    placeholderValue: string;
-    SelectArrow: string;
-    holderValues: string;
-    open: string;
-    emptyValue: string;
-    [x: string]: string;
-  };
+  styles?: typeof styles;
 };
 export type SingleSelectInterface = SelectInterface & {
   multi?: false;

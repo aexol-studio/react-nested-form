@@ -10,6 +10,7 @@ const fieldElements = {
   autosuggest: components.Autosuggest,
   string: components.Input,
   boolean: components.Checkbox,
+  number: components.Input,
   integer: components.Input,
   float: components.Input,
   text: components.Textarea,
@@ -19,7 +20,9 @@ const fieldElements = {
   date: components.Date,
   time: components.Time,
   reference: components.MultiSelect,
-  array: components.Tag
+  array: components.Tag,
+  nest: components.Nest,
+  nestArray: components.NestArray
 };
 
 export interface FormGeneratorInterface {
@@ -68,11 +71,18 @@ export class Form extends React.Component<FormGeneratorInterface> {
     var sfields = {
       ...this.state.fields
     };
-    const filteredValidate = Object.keys(sfields).filter((k) => !!this.state.changed[k]);
-    let returnData = filteredValidate.reduce((accumulator, currentValue, currentIndex, array) => {
-      accumulator[currentValue] = sfields[currentValue];
-      return accumulator;
+    const typeCaster = fields.reduce((a, b) => {
+      a[b.name] = 1;
+      return a;
     }, {});
+    const filteredValidate = Object.keys(sfields).filter((k) => !!this.state.changed[k]);
+    let returnData: typeof typeCaster = filteredValidate.reduce(
+      (accumulator, currentValue, currentIndex, array) => {
+        accumulator[currentValue] = sfields[currentValue];
+        return accumulator;
+      },
+      {}
+    );
     for (var f of fields) {
       if (returnData[f.name]) {
         returnData[f.name] = returnData[f.name];
@@ -111,8 +121,8 @@ export class Form extends React.Component<FormGeneratorInterface> {
       className = 'FormGen'
     } = this.props;
     const { Submit = SubmitComponent } = this.props;
-    if(new Set([...fields.map(f=>f.name)]).size !== fields.length){
-      throw new Error("Name properties of form fields must be unique!")
+    if (new Set([...fields.map((f) => f.name)]).size !== fields.length) {
+      throw new Error('Name properties of form fields must be unique!');
     }
     const fieldsRender = fields.map((f, i) => {
       let ftype = f.fieldType;

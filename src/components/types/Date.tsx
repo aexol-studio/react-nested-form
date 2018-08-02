@@ -1,11 +1,8 @@
-import { Moment } from 'moment';
+import * as styles from '../style/Date'
 
 export type DateInterface = {
   placeholder?: string;
   minYear?: number;
   maxYear?: number;
-  value?: Moment;
-  styles?: {
-    Date: string;
-  };
+  styles?: typeof styles
 };

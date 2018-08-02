@@ -1,5 +1,5 @@
+import * as styles from '../style/Datetime'
+
 export type DatetimeInterface = {
-  styles?: {
-    Datetime: string;
-  };
+  styles?: typeof styles,
 };

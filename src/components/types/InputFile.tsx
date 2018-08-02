@@ -1,7 +1,5 @@
+import * as styles from '../style/File';
 export interface FileInterface {
-  styles?: {
-    InputFile: string;
-    [x: string]: string;
-  };
+  styles?: typeof styles;
   onChange: (e: File) => void;
 }

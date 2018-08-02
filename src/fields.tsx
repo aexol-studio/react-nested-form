@@ -13,6 +13,8 @@ export type FieldType = {
   date: types.DateInterface;
   reference: types.SingleSelectInterface;
   array: types.TagType;
+  nest: types.NestInterface;
+  nestArray: types.NestArrayInterface;
 };
 export type FieldDefinition<Type extends keyof FieldType> = {
   name: string;
@@ -43,6 +45,11 @@ export type FieldDescription =
     }
   | {
       fieldType: 'float';
+      name: string;
+      content: FieldType['float'];
+    }
+  | {
+      fieldType: 'number';
       name: string;
       content: FieldType['float'];
     }
@@ -85,4 +92,14 @@ export type FieldDescription =
       fieldType: 'array';
       name: string;
       content: FieldType['array'];
+    }
+  | {
+      fieldType: 'nest';
+      name: string;
+      content: FieldType['nest'];
+    }
+  | {
+      fieldType: 'nestArray';
+      name: string;
+      content: FieldType['nestArray'];
     };

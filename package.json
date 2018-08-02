@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "moment": "^2.21.0",
+    "moment": "^2.22.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-json-edit": "^0.3.1",

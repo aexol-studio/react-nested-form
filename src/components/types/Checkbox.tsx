@@ -1,8 +1,4 @@
+import * as styles from '../style/Checkbox'
 export type CheckboxInterface = {
-  styles?: {
-    Checkbox: string;
-    border: string;
-    tick: string;
-    checked: string;
-  };
+  styles?: typeof styles
 };
