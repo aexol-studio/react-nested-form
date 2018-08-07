@@ -52,7 +52,6 @@ export class NestArray extends React.Component<FieldDefinition<'nestArray'>, { v
                 }}
                 values={v}
                 submitText="Edit"
-                Submit={() => <input type="submit" className={styles.Edit} value="Edit" />}
               />
               <button
                 className={styles.Remove}
@@ -70,7 +69,7 @@ export class NestArray extends React.Component<FieldDefinition<'nestArray'>, { v
           validate={(e) => {
             this.add(e);
           }}
-          Submit={() => <input type="submit" className={styles.Add} value="Add" />}
+          submitText="Edit"
         />
       </React.Fragment>
     );

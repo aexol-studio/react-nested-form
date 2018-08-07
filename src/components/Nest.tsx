@@ -16,5 +16,6 @@ export const Nest = ({
         onChange(e);
       }}
       values={value}
+      submitText="Edit"
     />
 );
