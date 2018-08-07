@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 const SubmitComponent = ({ submitText, onClick }) => (
-  <input className="Submit" type="submit" value={submitText} />
+  <button className="Submit" type="submit" onClick={onClick}>
+    {submitText}
+  </button>
 );
 export default SubmitComponent;
