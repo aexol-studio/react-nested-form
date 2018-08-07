@@ -61,6 +61,16 @@ export const Home = (props) => (
                 fieldType: 'string',
                 name: 'hello',
                 content: {}
+              },
+              {
+                fieldType: 'select',
+                name: 'sel',
+
+                content: {
+                  placeholder: 'single select',
+                  multi: false,
+                  options: opts
+                }
               }
             ]
           }

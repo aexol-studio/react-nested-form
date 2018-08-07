@@ -146,7 +146,12 @@ export class Form extends React.Component<FormGeneratorInterface> {
     return (
       <form onSubmit={this.validate} className={className} style={style}>
         {fieldsRender}
-        <Submit submitText={submitText} />
+        <Submit
+          submitText={submitText}
+          onClick={(e) => {
+            this.validate(e);
+          }}
+        />
       </form>
     );
   }
