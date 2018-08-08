@@ -68,6 +68,14 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
     if (multi && Array.isArray(fieldValue) && fieldValue.length === 0) {
       fieldValue = null;
     }
+    let selectOptions = [...options];
+    if (multi) {
+      if (fieldValue) {
+        selectOptions = selectOptions.filter((o) => !fieldValue.includes(o.value));
+      }
+    } else {
+      selectOptions = selectOptions.filter((o) => o.value !== fieldValue);
+    }
     const selectObject = (
       <div className={styles.holderValue}>
         {fieldValue ? (
@@ -145,7 +153,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
             [styles.open]: this.state.isOpen
           })}
         >
-          {options.map(({ label, value }, index) => {
+          {selectOptions.map(({ label, value }, index) => {
             return (
               <li
                 onClick={() => {

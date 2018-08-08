@@ -25,12 +25,18 @@ const fieldElements = {
   nestArray: components.NestArray
 };
 
+export type ValuesDescription = {
+  [x: string]: any;
+};
+
 export interface FormGeneratorInterface {
   fields: Array<FieldDescription>;
   validate: Function;
   style?: Object;
   className?: string;
-  values?: Array<any>;
+  values?: {
+    [x: string]: any;
+  };
   sendFullObject?: boolean;
   isFormData?: boolean;
   AlternativeWrapper?: React.ComponentType<any>;
@@ -44,7 +50,7 @@ export class Form extends React.Component<FormGeneratorInterface> {
     fields: {},
     changed: {}
   };
-  receiveFields = (values) => {
+  receiveFields = (values: ValuesDescription) => {
     const { fields } = this.props;
     let updateDict = {};
     let changesDict = { ...this.state.changed };

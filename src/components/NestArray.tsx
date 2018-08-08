@@ -2,43 +2,22 @@ import * as React from 'react';
 import { NestArray as styles } from './style';
 import { Form } from '..';
 import { FieldDefinition } from '../fields';
-export class NestArray extends React.Component<FieldDefinition<'nestArray'>, { values: any[] }> {
-  state = {
-    values: []
-  };
-  commit = () => {
-    this.props.onChange(this.state.values);
-  };
+export class NestArray extends React.Component<FieldDefinition<'nestArray'>> {
   edit = (e, i) => {
-    const values = [...this.state.values];
+    const values = [...this.props.value];
     values[i] = e;
-    this.setState(
-      {
-        values
-      },
-      this.commit
-    );
+    this.props.onChange([...values]);
   };
   remove = (i) => {
-    const values = [...this.state.values];
+    const values = [...this.props.value];
     values.splice(i, 1);
-    this.setState(
-      {
-        values
-      },
-      this.commit
-    );
+    this.props.onChange([...values]);
   };
   add = (e) => {
-    this.setState(
-      {
-        values: [...this.state.values, e]
-      },
-      this.commit
-    );
+    this.props.onChange([...this.props.value, e]);
   };
   render() {
-    const { styles: overrideStyles, value, fields } = this.props;
+    const { styles: overrideStyles, value = [], fields } = this.props;
     return (
       <React.Fragment>
         {value &&

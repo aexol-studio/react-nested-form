@@ -29,6 +29,22 @@ export const Home = (props) => (
     }}
   >
     <Form
+      values={{
+        naa: [
+          {
+            hello: 'ddd',
+            sel: 1
+          },
+          {
+            hello: 'aaa',
+            sel: 2
+          },
+          {
+            hello: 'ddd',
+            sel: null
+          }
+        ]
+      }}
       fields={[
         {
           fieldType: 'string',
