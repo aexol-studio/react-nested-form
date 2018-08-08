@@ -43,10 +43,11 @@ export class NestArray extends React.Component<FieldDefinition<'nestArray'>, { v
       <React.Fragment>
         {value &&
           value.map((v, i) => (
-            <div className={styles.Inline}>
+            <div className={styles.Inline} key={i}>
               <Form
                 className={overrideStyles ? overrideStyles.Nest : styles.Nest}
                 fields={fields}
+                sendFullObject={true}
                 validate={(e) => {
                   this.edit(e, i);
                 }}
@@ -69,7 +70,7 @@ export class NestArray extends React.Component<FieldDefinition<'nestArray'>, { v
           validate={(e) => {
             this.add(e);
           }}
-          submitText="Edit"
+          submitText="Add"
         />
       </React.Fragment>
     );

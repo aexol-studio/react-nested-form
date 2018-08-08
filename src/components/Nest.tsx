@@ -16,6 +16,7 @@ export const Nest = ({
         onChange(e);
       }}
       values={value}
+      sendFullObject={true}
       submitText="Edit"
     />
 );

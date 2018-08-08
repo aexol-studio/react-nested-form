@@ -31,6 +31,7 @@ export interface FormGeneratorInterface {
   style?: Object;
   className?: string;
   values?: Array<any>;
+  sendFullObject?: boolean;
   isFormData?: boolean;
   AlternativeWrapper?: React.ComponentType<any>;
   Submit?: React.ComponentType<any>;
@@ -75,7 +76,9 @@ export class Form extends React.Component<FormGeneratorInterface> {
       a[b.name] = 1;
       return a;
     }, {});
-    const filteredValidate = Object.keys(sfields).filter((k) => !!this.state.changed[k]);
+    const filteredValidate = this.props.sendFullObject
+      ? Object.keys(sfields)
+      : Object.keys(sfields).filter((k) => !!this.state.changed[k]);
     let returnData: typeof typeCaster = filteredValidate.reduce(
       (accumulator, currentValue, currentIndex, array) => {
         accumulator[currentValue] = sfields[currentValue];
@@ -144,7 +147,7 @@ export class Form extends React.Component<FormGeneratorInterface> {
       );
     });
     return (
-      <form onSubmit={this.validate} className={className} style={style}>
+      <div className={className} style={style}>
         {fieldsRender}
         <Submit
           submitText={submitText}
@@ -152,7 +155,7 @@ export class Form extends React.Component<FormGeneratorInterface> {
             this.validate(e);
           }}
         />
-      </form>
+      </div>
     );
   }
 }

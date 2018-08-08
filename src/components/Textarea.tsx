@@ -5,6 +5,7 @@ import { FieldDefinition } from '../fields';
 export const Textarea = ({
   styles: overrideStyles,
   onChange,
+  value = '',
   ...props
 }: FieldDefinition<'text'>) => (
   <textarea
@@ -12,6 +13,7 @@ export const Textarea = ({
     onChange={(e) => {
       onChange(e.target.value);
     }}
+    value={value}
     {...props}
   />
 );

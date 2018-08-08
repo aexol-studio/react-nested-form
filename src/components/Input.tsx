@@ -4,6 +4,7 @@ import { FieldDefinition } from '../fields';
 export const Input = ({
   onChange,
   styles: overrideStyles,
+  value = '',
   ...props
 }: FieldDefinition<'string'>) => (
   <input
@@ -11,6 +12,7 @@ export const Input = ({
     onChange={(e) => {
       onChange(e.target.value);
     }}
+    value={value}
     {...props}
   />
 );

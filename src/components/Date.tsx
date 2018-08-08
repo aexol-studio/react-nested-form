@@ -24,16 +24,13 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
       };
     }
     const val = value as moment.Moment;
-    console.log(val);
     const months = moment.months().map((v, i) => ({ label: v, value: i + 1 }));
     const currentMonth = val.month() + 1;
     const currentYear = val.year();
     const currentDay = val.date();
-    console.log(val);
     const daysInMonth = new Array(val.daysInMonth())
       .fill(0)
       .map((v, i) => ({ label: `${i + 1}`, value: i + 1 }));
-    console.log(daysInMonth);
     const yearsToShow = new Array(maxYear - minYear).fill(0).map((y, i) => ({
       label: y + minYear + i,
       value: y + minYear + i
