@@ -4,17 +4,20 @@ import { Form } from '..';
 import { FieldDefinition } from '../fields';
 export class NestArray extends React.Component<FieldDefinition<'nestArray'>> {
   edit = (e, i) => {
-    const values = [...this.props.value];
+    const { value = [] } = this.props;
+    const values = [...value];
     values[i] = e;
     this.props.onChange([...values]);
   };
   remove = (i) => {
-    const values = [...this.props.value];
+    const { value = [] } = this.props;
+    const values = [...value];
     values.splice(i, 1);
     this.props.onChange([...values]);
   };
   add = (e) => {
-    this.props.onChange([...this.props.value, e]);
+    const { value = [] } = this.props;
+    this.props.onChange([...value, e]);
   };
   render() {
     const { styles: overrideStyles, value = [], fields } = this.props;
