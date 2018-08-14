@@ -7,6 +7,7 @@ export type SelectInterface = {
   style?: Object;
   placeholder?: string;
   styles?: typeof styles;
+  blockEmpty?: boolean
 };
 export type SingleSelectInterface = SelectInterface & {
   multi?: false;
