@@ -33,7 +33,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
     }
     onChange(vals);
     this.setState({
-      isOpen: true
+      isOpen: multi
     });
   };
   render() {
