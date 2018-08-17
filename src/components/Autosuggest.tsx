@@ -28,17 +28,17 @@ export class Autosuggest extends React.Component<
     }
   }
   onChange = (e) => {
-    const { load, onSelect } = this.props;
+    const { load, onChange } = this.props;
     const newValue = e.target.value;
     this.setState({ setValue: newValue, showDatalist: true });
     if (newValue.length > 0) {
       load(newValue);
-      onSelect(newValue);
+      onChange(newValue);
     }
   };
   render() {
     let {
-      onSelect,
+      onChange,
       list = [],
       name = 'autosuggest',
       placeholder,
@@ -86,7 +86,7 @@ export class Autosuggest extends React.Component<
                         setValue: i,
                         showDatalist: false
                       });
-                      onSelect(i);
+                      onChange(i);
                     }}
                   >
                     {i}
