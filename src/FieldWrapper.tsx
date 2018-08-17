@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { FieldDescription } from './fields';
 
 export type FieldWrapperProps= {
-  name:string
+  field:FieldDescription
 }
 
 export class FieldWrapper extends React.Component<FieldWrapperProps> {

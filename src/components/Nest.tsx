@@ -9,14 +9,15 @@ export const Nest = ({
   fields,
   ...props
 }: FieldDefinition<'nest'>) => (
-    <Form
-      className={overrideStyles ? overrideStyles.Nest : styles.Nest}
-      fields={fields}
-      validate={(e) => {
-        onChange(e);
-      }}
-      values={value}
-      sendFullObject={true}
-      submitText="Edit"
-    />
+  <Form
+    className={overrideStyles ? overrideStyles.Nest : styles.Nest}
+    fields={fields}
+    validate={(e) => {
+      onChange(e);
+    }}
+    validateOnChange={true}
+    values={value}
+    sendFullObject={true}
+    submitText="Edit"
+  />
 );

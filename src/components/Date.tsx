@@ -35,13 +35,14 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
       label: y + minYear + i,
       value: y + minYear + i
     }));
-    yearsToShow.reverse();
     return (
       <div className={styles.Date}>
         <MultiSelect
           name={name}
           options={daysInMonth}
           value={daysInMonth.find((m) => m.value === currentDay).value}
+          blockEmpty={true}
+          noSort={true}
           onChange={(e) => {
             onChange(val.date(e));
           }}
@@ -50,6 +51,8 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           name={name}
           options={months}
           value={months.find((m) => m.value === currentMonth).value}
+          blockEmpty={true}
+          noSort={true}
           onChange={(e) => {
             onChange(val.month(e - 1));
           }}
@@ -58,6 +61,8 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           name={name}
           options={yearsToShow}
           value={yearsToShow.find((m) => m.value === currentYear).value}
+          blockEmpty={true}
+          noSort={true}
           onChange={(e) => {
             onChange(val.year(e));
           }}

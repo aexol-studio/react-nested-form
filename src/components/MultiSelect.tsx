@@ -45,6 +45,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
       styles: overrideStyles,
       value: fieldValue,
       blockEmpty,
+      noSort,
       style = {}
     } = this.props;
     if (options.length === 0) {
@@ -52,7 +53,9 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
       console.warn('Options of Multiselect cannot be empty');
     }
     options = options.map((o) => ({ ...o, label: `${o.label}` }));
-    options.sort((a, b) => a.label.localeCompare(b.label));
+    if (!noSort) {
+      options.sort((a, b) => a.label.localeCompare(b.label));
+    }
     if (!blockEmpty) {
       options = [{ label: '-------------', value: null }, ...options];
     }

@@ -34,6 +34,7 @@ export class NestArray extends React.Component<FieldDefinition<'nestArray'>> {
                   this.edit(e, i);
                 }}
                 values={v}
+                validateOnChange={true}
                 submitText="Edit"
               />
               <button

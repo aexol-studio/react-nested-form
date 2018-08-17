@@ -3,7 +3,7 @@ import * as components from './components';
 
 import { FieldDescription } from './fields';
 
-import { FieldWrapper } from './FieldWrapper';
+import { FieldWrapper, FieldWrapperProps } from './FieldWrapper';
 import SubmitComponent from './SubmitComponent';
 
 const fieldElements = {
@@ -39,9 +39,10 @@ export interface FormGeneratorInterface {
   };
   sendFullObject?: boolean;
   isFormData?: boolean;
-  AlternativeWrapper?: React.ComponentType<any>;
+  AlternativeWrapper?: React.ComponentType<FieldWrapperProps>;
   Submit?: React.ComponentType<any>;
   submitText?: string;
+  validateOnChange?: boolean;
 }
 
 export class Form extends React.Component<FormGeneratorInterface> {
@@ -72,26 +73,18 @@ export class Form extends React.Component<FormGeneratorInterface> {
       this.receiveFields(nextProps.values);
     }
   }
-  validate = (e) => {
-    e.preventDefault();
+  validate = () => {
     const { fields, isFormData = false } = this.props;
     var sfields = {
       ...this.state.fields
     };
-    const typeCaster = fields.reduce((a, b) => {
-      a[b.name] = 1;
-      return a;
-    }, {});
     const filteredValidate = this.props.sendFullObject
       ? Object.keys(sfields)
       : Object.keys(sfields).filter((k) => !!this.state.changed[k]);
-    let returnData: typeof typeCaster = filteredValidate.reduce(
-      (accumulator, currentValue, currentIndex, array) => {
-        accumulator[currentValue] = sfields[currentValue];
-        return accumulator;
-      },
-      {}
-    );
+    let returnData = filteredValidate.reduce((accumulator, currentValue, currentIndex, array) => {
+      accumulator[currentValue] = sfields[currentValue];
+      return accumulator;
+    }, {});
     for (var f of fields) {
       if (returnData[f.name]) {
         returnData[f.name] = returnData[f.name];
@@ -109,25 +102,30 @@ export class Form extends React.Component<FormGeneratorInterface> {
     }
     this.props.validate(returnData);
   };
-  modifyField = ({ name, value }) => {
-    this.setState({
-      fields: {
-        ...this.state.fields,
-        [name]: value
-      },
-      changed: {
-        ...this.state.changed,
-        [name]: true
-      }
+  modifyField = ({ name, value }) =>
+    new Promise((resolve, reject) => {
+      this.setState(
+        {
+          fields: {
+            ...this.state.fields,
+            [name]: value
+          },
+          changed: {
+            ...this.state.changed,
+            [name]: true
+          }
+        },
+        resolve
+      );
     });
-  };
   render() {
     const {
       fields,
       submitText,
       AlternativeWrapper = FieldWrapper,
       style = {},
-      className = 'FormGen'
+      className = 'FormGen',
+      validateOnChange
     } = this.props;
     const { Submit = SubmitComponent } = this.props;
     if (new Set([...fields.map((f) => f.name)]).size !== fields.length) {
@@ -137,13 +135,17 @@ export class Form extends React.Component<FormGeneratorInterface> {
       let ftype = f.fieldType;
       const RenderField = fieldElements[ftype] as React.ComponentType<any>;
       return (
-        <AlternativeWrapper key={i}>
+        <AlternativeWrapper field={f} key={i}>
           <RenderField
             name={f.name}
             onChange={(e) => {
               this.modifyField({
                 name: f.name,
                 value: e
+              }).then(() => {
+                if (validateOnChange) {
+                  this.validate();
+                }
               });
             }}
             value={this.state.fields[f.name]}
@@ -155,12 +157,14 @@ export class Form extends React.Component<FormGeneratorInterface> {
     return (
       <div className={className} style={style}>
         {fieldsRender}
-        <Submit
-          submitText={submitText}
-          onClick={(e) => {
-            this.validate(e);
-          }}
-        />
+        {!validateOnChange && (
+          <Submit
+            submitText={submitText}
+            onClick={() => {
+              this.validate();
+            }}
+          />
+        )}
       </div>
     );
   }
