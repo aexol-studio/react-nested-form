@@ -1,6 +1,6 @@
 {
   "name": "@slothking-online/form",
-  "version": "0.1.33",
+  "version": "0.1.34",
   "private": false,
   "description": "Slothking form",
   "main": "lib/index.js",
