@@ -155,7 +155,15 @@ export class Form extends React.Component<FormGeneratorInterface> {
       );
     });
     return (
-      <div className={className} style={style}>
+      <div
+        className={className}
+        style={style}
+        onKeyDown={(e) => {
+          if (!validateOnChange && (e.key === 'Enter' || e.keyCode === 13)) {
+            this.validate();
+          }
+        }}
+      >
         {fieldsRender}
         {!validateOnChange && (
           <Submit

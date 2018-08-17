@@ -49,7 +49,10 @@ export const Home = (props) => (
         {
           fieldType: 'string',
           name: 'hello',
-          content: {}
+          content: {
+            required: true,
+            pattern: '[a-z]*'
+          }
         },
         {
           fieldType: 'select',
