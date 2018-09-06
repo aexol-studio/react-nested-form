@@ -227,7 +227,7 @@ const YourComponent = () => (
 
 ### Replacing a style
 
-```tsx
+```jsx
 import * as React from 'react';
 import { Form, Input, FieldDefinition, SubmitComponent,styles } from '@slothking-online/form';
 import { style } from "typestyle";
