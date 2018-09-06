@@ -25,7 +25,13 @@ html component work. This is why I think we need a new forms standard for react 
 
 Welcome
 
-# react-nested-form
+# nested-form
+
+## Installation
+
+```sh
+$ npm add nested-form
+```
 
 Library created to enable nested forms inside of your project. Every component is 100% Modular composed of replacable, extendable Components of form. You can replace or extend every component with your style or your new react component. You can write validate functions for every field, form and nested form. You can use validation on edit.
 
