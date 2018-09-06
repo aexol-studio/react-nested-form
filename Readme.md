@@ -35,9 +35,9 @@ $ npm add nested-form
 
 Library created to enable nested forms inside of your project. Every component is 100% Modular composed of replacable, extendable Components of form. You can replace or extend every component with your style or your new react component. You can write validate functions for every field, form and nested form. You can use validation on edit.
 
-```tsx
+```jsx
 import * as React from 'react'
-import { Form } from 'react-nested-form'
+import { Form } from 'nested-form'
 
 const YourComponent = () => (
     <div>
@@ -109,9 +109,9 @@ const YourComponent = () => (
 
 It is also possible to replace form field Wrapper that wraps every field
 
-```tsx
+```jsx
 import * as React from 'react'
-import { Form } from 'react-nested-form'
+import { Form } from 'nested-form'
 
 const YourComponent = () => (
     <div>
@@ -146,9 +146,9 @@ const YourComponent = () => (
 
 ## Component Replace
 
-```tsx
+```jsx
 import * as React from 'react';
-import { Form, Input, FieldDefinition } from 'react-nested-form';
+import { Form, Input, FieldDefinition } from 'nested-form';
 
 export const CustomInput: typeof Input = (props: FieldDefinition<'string'>) => (
   <input
@@ -189,9 +189,9 @@ const YourComponent = () => (
 
 ## Submit button
 
-```tsx
+```jsx
 import * as React from 'react';
-import { Form, Input, FieldDefinition, SubmitComponent } from 'react-nested-form';
+import { Form, Input, FieldDefinition, SubmitComponent } from 'nested-form';
 
 
 export const CustomSubmit: typeof SubmitComponent = ({ submitText, onClick }) => (
@@ -229,7 +229,7 @@ const YourComponent = () => (
 
 ```jsx
 import * as React from 'react';
-import { Form, Input, FieldDefinition, SubmitComponent,styles } from '@slothking-online/form';
+import { Form, Input, FieldDefinition, SubmitComponent,styles } from 'nested-form';
 import { style } from "typestyle";
 
 export const BigInput: typeof styles.Input = {
@@ -266,9 +266,9 @@ const YourComponent = () => (
 
 ### Extending style
 
-```tsx
+```jsx
 import * as React from 'react';
-import { Form, Input, FieldDefinition, SubmitComponent,styles } from '@slothking-online/form';
+import { Form, Input, FieldDefinition, SubmitComponent,styles } from 'nested-form';
 import { style, classes } from "typestyle";
 
 export const RedAutoSuggest: typeof styles.Autosuggest = {

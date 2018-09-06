@@ -39,7 +39,7 @@
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
-    "@slothking-online/form": "file:../",
+    "nested-form": "file:../",
     "classnames": "^2.2.5",
     "moment": "^2.22.2",
     "react": "^16.4.1",

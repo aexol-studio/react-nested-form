@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Form, Input, FieldDefinition, SubmitComponent, styles } from '@slothking-online/form';
+import { Form, Input, FieldDefinition, SubmitComponent, styles } from 'nested-form';
 import { style, classes } from 'typestyle';
 const opts = [
   {
