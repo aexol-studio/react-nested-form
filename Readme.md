@@ -41,7 +41,7 @@ import { Form } from 'react-nested-form'
 
 const YourComponent = () => (
     <div>
-        <h1>I am a form</div>
+        <h1>I am a form</h1>
         <Form
             fields={[
                 {
@@ -115,7 +115,7 @@ import { Form } from 'react-nested-form'
 
 const YourComponent = () => (
     <div>
-        <h1>I am a form</div>
+        <h1>I am a form</h1>
         <Form
             fields={[
                 {
@@ -165,7 +165,7 @@ export const CustomInput: typeof Input = (props: FieldDefinition<'string'>) => (
 
 const YourComponent = () => (
     <div>
-        <h1>I am a form</div>
+        <h1>I am a form</h1>
         <Form
             fields={[
                 {
@@ -199,7 +199,7 @@ export const CustomSubmit: typeof SubmitComponent = ({ submitText, onClick }) =>
 );
 const YourComponent = () => (
     <div>
-        <h1>I am a form</div>
+        <h1>I am a form</h1>
         <Form
             fields={[
                 {
@@ -241,7 +241,7 @@ export const BigInput: typeof styles.Input = {
 
 const YourComponent = () => (
     <div>
-        <h1>I am a form</div>
+        <h1>I am a form</h1>
         <Form
             fields={[
                 {
@@ -292,7 +292,7 @@ class YourComponent extends React.Component<{},{
     render(){
         return (
             <div>
-                <h1>I am a form</div>
+                <h1>I am a form</h1>
                 <Form
                     fields={[
                         {
