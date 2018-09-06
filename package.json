@@ -1,8 +1,8 @@
 {
-  "name": "@slothking-online/form",
+  "name": "react-nested-form",
   "version": "0.1.36",
   "private": false,
-  "description": "Slothking form",
+  "description": "React nested form",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "publishConfig": {

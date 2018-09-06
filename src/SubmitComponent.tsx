@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-const SubmitComponent = ({ submitText, onClick }) => (
+
+export const SubmitComponent = ({ submitText, onClick }:{submitText:string, onClick:(event: React.MouseEvent<any>) => void}) => (
   <button className="Submit" type="submit" onClick={onClick}>
     {submitText}
   </button>
 );
-export default SubmitComponent;

@@ -4,7 +4,7 @@ import * as components from './components';
 import { FieldDescription } from './fields';
 
 import { FieldWrapper, FieldWrapperProps } from './FieldWrapper';
-import SubmitComponent from './SubmitComponent';
+import { SubmitComponent } from './SubmitComponent';
 
 const fieldElements = {
   autosuggest: components.Autosuggest,
@@ -45,8 +45,20 @@ export interface FormGeneratorInterface {
   validateOnChange?: boolean;
 }
 
-export class Form extends React.Component<FormGeneratorInterface> {
-  state = {
+export type FormState = {
+  errors: {
+    [x: string]: string;
+  };
+  fields: {
+    [x: string]: any;
+  };
+  changed: {
+    [x: string]: boolean;
+  };
+};
+
+export class Form extends React.Component<FormGeneratorInterface, FormState> {
+  state: FormState = {
     errors: {},
     fields: {},
     changed: {}
@@ -75,32 +87,54 @@ export class Form extends React.Component<FormGeneratorInterface> {
   }
   validate = () => {
     const { fields, isFormData = false } = this.props;
-    var sfields = {
+    let sfields = {
       ...this.state.fields
     };
-    const filteredValidate = this.props.sendFullObject
-      ? Object.keys(sfields)
-      : Object.keys(sfields).filter((k) => !!this.state.changed[k]);
-    let returnData = filteredValidate.reduce((accumulator, currentValue, currentIndex, array) => {
-      accumulator[currentValue] = sfields[currentValue];
-      return accumulator;
-    }, {});
-    for (var f of fields) {
-      if (returnData[f.name]) {
-        returnData[f.name] = returnData[f.name];
-      }
+    if (!this.props.sendFullObject) {
+      const filteredValidate = Object.keys(sfields).filter((k) => !!this.state.changed[k]);
+      sfields = filteredValidate.reduce((a, b) => {
+        a[b] = sfields[b];
+        return a;
+      }, {});
     }
     if (isFormData) {
       let fd = new FormData();
-      for (var key of Object.keys(returnData)) {
-        let value = returnData[key];
+      for (var key of Object.keys(sfields)) {
+        let value = sfields[key];
         fd.append(
           key,
           Array.isArray(value) || typeof value === 'object' ? JSON.stringify(value) : value
         );
       }
     }
-    this.props.validate(returnData);
+    let pass = true;
+    for (var f of fields) {
+      if (f.validate) {
+        try {
+          f.validate(sfields[f.name]);
+        } catch (error) {
+          this.setState((state) => ({
+            errors: {
+              ...state.errors,
+              [f.name]: error
+            }
+          }));
+          pass = false;
+        }
+      }
+      if (f.required && !sfields[f.name]) {
+        this.setState((state) => ({
+          errors: {
+            ...state.errors,
+            [f.name]: 'This field is required'
+          }
+        }));
+        pass = false;
+      }
+    }
+    if (pass) {
+      this.props.validate(sfields);
+    }
   };
   modifyField = ({ name, value }) =>
     new Promise((resolve, reject) => {
@@ -135,7 +169,7 @@ export class Form extends React.Component<FormGeneratorInterface> {
       let ftype = f.fieldType;
       const RenderField = fieldElements[ftype] as React.ComponentType<any>;
       return (
-        <AlternativeWrapper field={f} key={i}>
+        <AlternativeWrapper field={f} key={i} error={this.state.errors[f.name]}>
           <RenderField
             name={f.name}
             onChange={(e) => {

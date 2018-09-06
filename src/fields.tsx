@@ -22,7 +22,7 @@ export type FieldDefinition<Type extends keyof FieldType> = {
   value: any;
 } & FieldType[Type];
 
-export type FieldDescription =
+export type FieldDescription = (
   | {
       fieldType: 'autosuggest';
       name: string;
@@ -102,4 +102,4 @@ export type FieldDescription =
       fieldType: 'nestArray';
       name: string;
       content: FieldType['nestArray'];
-    };
+    }) & { required?: boolean; validate?: (e: any) => void; };
