@@ -30,7 +30,9 @@ export type ValuesDescription = {
 };
 
 export interface FormGeneratorInterface {
-  fields: Array<FieldDescription>;
+  fields: {
+    [x:string]:FieldDescription
+  };
   validate: Function;
   style?: Object;
   className?: string;
@@ -67,8 +69,8 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
     const { fields } = this.props;
     let updateDict = {};
     let changesDict = { ...this.state.changed };
-    for (var { name } of fields) {
-      updateDict[name] = values[name];
+    for (var k of Object.keys(fields)) {
+      updateDict[k] = values[k];
       changesDict[name] = false;
     }
     this.setState({ fields: updateDict, changed: changesDict });
@@ -87,6 +89,7 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
   }
   validate = () => {
     const { fields, isFormData = false } = this.props;
+    
     let sfields = {
       ...this.state.fields
     };
@@ -108,25 +111,26 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
       }
     }
     let pass = true;
-    for (var f of fields) {
+    for (var k of Object.keys(fields)) {
+      const f = fields[k]
       if (f.validate) {
         try {
-          f.validate(sfields[f.name]);
+          f.validate(sfields[k]);
         } catch (error) {
           this.setState((state) => ({
             errors: {
               ...state.errors,
-              [f.name]: error
+              [k]: error
             }
           }));
           pass = false;
         }
       }
-      if (f.required && !sfields[f.name]) {
+      if (f.required && !sfields[k]) {
         this.setState((state) => ({
           errors: {
             ...state.errors,
-            [f.name]: 'This field is required'
+            [k]: 'This field is required'
           }
         }));
         pass = false;
@@ -162,10 +166,10 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
       validateOnChange
     } = this.props;
     const { Submit = SubmitComponent } = this.props;
-    if (new Set([...fields.map((f) => f.name)]).size !== fields.length) {
-      throw new Error('Name properties of form fields must be unique!');
-    }
-    const fieldsRender = fields.map((f, i) => {
+    const fieldsRender = Object.keys(fields).map(f=>({
+      name:f,
+      ...fields[f]
+    })).map((f, i) => {
       let ftype = f.fieldType;
       const RenderField = fieldElements[ftype] as React.ComponentType<any>;
       return (
