@@ -25,65 +25,81 @@ export type FieldDefinition<Type extends keyof FieldType> = {
 export type FieldDescription = (
   | {
       fieldType: 'autosuggest';
+      name: string;
       content: FieldType['autosuggest'];
     }
   | {
       fieldType: 'string';
+      name: string;
       content: FieldType['string'];
     }
   | {
       fieldType: 'boolean';
+      name: string;
       content: FieldType['boolean'];
     }
   | {
       fieldType: 'integer';
+      name: string;
       content: FieldType['integer'];
     }
   | {
       fieldType: 'float';
+      name: string;
       content: FieldType['float'];
     }
   | {
       fieldType: 'number';
+      name: string;
       content: FieldType['float'];
     }
   | {
       fieldType: 'text';
+      name: string;
       content: FieldType['text'];
     }
   | {
       fieldType: 'select';
+      name: string;
       content: FieldType['select'];
     }
   | {
       fieldType: 'file';
+      name: string;
       content: FieldType['file'];
     }
   | {
       fieldType: 'datetime';
+      name: string;
       content: FieldType['datetime'];
     }
   | {
       fieldType: 'time';
+      name: string;
       content: FieldType['time'];
     }
   | {
       fieldType: 'date';
+      name: string;
       content: FieldType['date'];
     }
   | {
       fieldType: 'reference';
+      name: string;
       content: FieldType['reference'];
     }
   | {
       fieldType: 'array';
+      name: string;
       content: FieldType['array'];
     }
   | {
       fieldType: 'nest';
+      name: string;
       content: FieldType['nest'];
     }
   | {
       fieldType: 'nestArray';
+      name: string;
       content: FieldType['nestArray'];
     }) & { required?: boolean; validate?: (e: any) => void; };
