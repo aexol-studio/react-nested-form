@@ -108,30 +108,31 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
       }
     }
     let pass = true;
+    let errors = {};
     for (var f of fields) {
       if (f.validate) {
         try {
           f.validate(sfields[f.name]);
         } catch (error) {
-          this.setState((state) => ({
-            errors: {
-              ...state.errors,
-              [f.name]: error
-            }
-          }));
+          console.log(error)
+          errors = {
+            ...errors,
+            [f.name]: error.toString()
+          };
           pass = false;
         }
       }
       if (f.required && !sfields[f.name]) {
-        this.setState((state) => ({
-          errors: {
-            ...state.errors,
-            [f.name]: 'This field is required'
-          }
-        }));
+        errors = {
+          ...errors,
+          [f.name]: `Field ${f.name} is required`
+        };
         pass = false;
       }
     }
+    this.setState((state) => ({
+      errors
+    }));
     if (pass) {
       this.props.validate(sfields);
     }
