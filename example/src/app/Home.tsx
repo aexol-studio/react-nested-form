@@ -116,9 +116,7 @@ export class Home extends React.Component<{}, HomeState> {
                 pattern: '[a-z]*'
               },
               validate: (e: string) => {
-                const ma = e.match(/[a-z]*/).length === e.length;
-                console.log(ma);
-                if (!ma) {
+                if (e && !e.match(/[a-z]/)) {
                   throw new Error('Invalid field');
                 }
                 return true;

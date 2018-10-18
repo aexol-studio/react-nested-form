@@ -32,7 +32,9 @@ export const placeholderValue = style({
   height: '100%',
   display: 'block',
   boxSizing: 'border-box',
-  color: '#888'
+  color: '#888',
+  border: 0,
+  outline: 0
 });
 
 export const showValue = style({

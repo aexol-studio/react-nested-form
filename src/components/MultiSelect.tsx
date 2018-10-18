@@ -5,7 +5,8 @@ import { Multiselect as importedStyles } from './style';
 
 export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
   state = {
-    isOpen: false
+    isOpen: false,
+    inputMatch: null
   };
   componentWillMount() {
     document.addEventListener('click', this.documentClickHandler, true);
@@ -20,7 +21,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
       isOpen: false
     });
   };
-  addValue = (value) => {
+  addValue = (value) => { 
     let { value: fieldValue = [], onChange, multi = false } = this.props;
     if (!fieldValue) {
       if (multi) {
@@ -36,6 +37,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
       isOpen: multi
     });
   };
+
   render() {
     let {
       placeholder,
@@ -125,10 +127,25 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
                   ? options.find((o) => o.value === fieldValue).label
                   : 'Error - no value'}
               </span>
+              <span
+                    className={styles.Delete}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newValue = null;
+                      onChange(newValue);
+                    }}
+                  >
+                    ×
+                  </span>
             </div>
           )
         ) : (
-          <span className={styles.placeholderValue}>{placeholder}</span>
+          <input id="placeholder" placeholder={placeholder} className={styles.placeholderValue} 
+            onChange={(e)=>
+              this.setState({
+                inputMatch: e.target.value,
+              })} 
+          />
         )}
       </div>
     );
@@ -137,7 +154,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
         <div
           onClick={() => {
             this.setState({
-              isOpen: !this.state.isOpen
+              isOpen: !this.state.isOpen,
             });
           }}
           className={classnames({
@@ -159,7 +176,9 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
             [styles.open]: this.state.isOpen
           })}
         >
-          {selectOptions.map(({ label, value }, index) => {
+          {this.state.inputMatch 
+          ?
+          selectOptions.filter(o => o.label.toLowerCase().match(this.state.inputMatch.toLowerCase())).map(({ label, value }, index) => {
             return (
               <li
                 onClick={() => {
@@ -170,7 +189,21 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
                 {label}
               </li>
             );
-          })}
+          })
+        :
+        selectOptions.map(({ label, value }, index) => {
+          return (
+            <li
+              onClick={() => {
+                this.addValue(value);
+              }}
+              key={index}
+            >
+              {label}
+            </li>
+          );
+        })
+        }
         </ul>
       </div>
     );
