@@ -43,6 +43,7 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           value={daysInMonth.find((m) => m.value === currentDay).value}
           blockEmpty={true}
           noSort={true}
+          multi={false}
           onChange={(e) => {
             onChange(val.date(e));
           }}
@@ -53,6 +54,7 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           value={months.find((m) => m.value === currentMonth).value}
           blockEmpty={true}
           noSort={true}
+          multi={false}
           onChange={(e) => {
             onChange(val.month(e - 1));
           }}
@@ -63,6 +65,7 @@ export class Date extends React.Component<FieldDefinition<'date'>> {
           value={yearsToShow.find((m) => m.value === currentYear).value}
           blockEmpty={true}
           noSort={true}
+          multi={false}
           onChange={(e) => {
             onChange(val.year(e));
           }}
