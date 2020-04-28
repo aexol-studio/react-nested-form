@@ -14,7 +14,7 @@ export class Autosuggest extends React.Component<
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
+  componentDidMount() {
     const { initialValue = '' } = this.props;
     this.setState({
       setValue: initialValue

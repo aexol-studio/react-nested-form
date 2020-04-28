@@ -7,7 +7,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
   state = {
     isOpen: false
   };
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener('click', this.documentClickHandler, true);
   }
 
