@@ -15,19 +15,19 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/classnames": "2.2.3",
-    "@types/history": "4.6.2",
-    "@types/json-schema": "^6.0.1",
+    "@types/classnames": "2.2.10",
+    "@types/history": "4.7.5",
+    "@types/json-schema": "^7.0.4",
     "@types/moment": "^2.13.0",
-    "@types/node": "9.4.6",
-    "@types/react": "16.0.40",
-    "@types/react-dom": "16.0.4",
+    "@types/node": "13.13.4",
+    "@types/react": "16.9.34",
+    "@types/react-dom": "16.9.7",
     "grunt": "^1.0.3",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-ts": "^6.0.0-beta.19",
-    "prettier": "^1.11.1",
-    "typescript": "^2.8.0-dev.20180318"
+    "prettier": "^2.0.5",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -36,6 +36,6 @@
     "react-dom": "^16.2.0",
     "react-json-edit": "^0.3.1",
     "typestyle": "^2.0.1",
-    "utility-types": "^1.1.0"
+    "utility-types": "^3.10.0"
   }
 }
