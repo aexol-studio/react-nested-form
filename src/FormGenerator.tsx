@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as components from './components';
 
 import { FieldDescription } from './fields';
@@ -22,7 +22,7 @@ const fieldElements = {
   reference: components.MultiSelect,
   array: components.Tag,
   nest: components.Nest,
-  nestArray: components.NestArray
+  nestArray: components.NestArray,
 };
 
 export type ValuesDescription = {
@@ -57,45 +57,62 @@ export type FormState = {
   };
 };
 
-export class Form extends React.Component<FormGeneratorInterface, FormState> {
-  state: FormState = {
+export const Form: React.FC<FormGeneratorInterface> = ({
+  fields,
+  submitText = 'Submit',
+  AlternativeWrapper = FieldWrapper,
+  style = {},
+  className,
+  validateOnChange,
+  isFormData = false,
+  Submit = SubmitComponent,
+  values,
+  sendFullObject,
+  validate,
+}) => {
+  const [state, setState] = useState<FormState>({
     errors: {},
+    changed: {},
     fields: {},
-    changed: {}
-  };
-  receiveFields = (values: ValuesDescription) => {
-    const { fields } = this.props;
-    let updateDict = {};
-    let changesDict = { ...this.state.changed };
+  });
+
+  useEffect(() => {
+    if (values) {
+      receiveFields(values);
+    }
+  }, [JSON.stringify(values)]);
+
+  const receiveFields = (values: ValuesDescription) => {
+    let updateDict: Record<string, any> = {};
+    let changesDict = { ...state.changed };
     for (var { name } of fields) {
       updateDict[name] = values[name];
       changesDict[name] = false;
     }
-    this.setState({ fields: updateDict, changed: changesDict });
+    setState({ ...state, fields: updateDict, changed: changesDict });
   };
-  componentWillMount() {
-    const { values } = this.props;
-    if (values) {
-      this.receiveFields(values);
-    }
-  }
-  componentWillReceiveProps(nextProps) {
-    const { values } = this.props;
-    if (nextProps.values && nextProps.values !== values) {
-      this.receiveFields(nextProps.values);
-    }
-  }
-  validate = () => {
-    const { fields, isFormData = false } = this.props;
+  const modifyField = ({ name, value }: { name: string; value: any }) =>
+    setState({
+      ...state,
+      fields: {
+        ...state.fields,
+        [name]: value,
+      },
+      changed: {
+        ...state.changed,
+        [name]: true,
+      },
+    });
+  const validateFunction = () => {
     let sfields = {
-      ...this.state.fields
+      ...state.fields,
     };
-    if (!this.props.sendFullObject) {
-      const filteredValidate = Object.keys(sfields).filter((k) => !!this.state.changed[k]);
+    if (!sendFullObject) {
+      const filteredValidate = Object.keys(sfields).filter((k) => !!state.changed[k]);
       sfields = filteredValidate.reduce((a, b) => {
         a[b] = sfields[b];
         return a;
-      }, {});
+      }, {} as Record<string, any>);
     }
     if (isFormData) {
       let fd = new FormData();
@@ -114,10 +131,10 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
         try {
           f.validate(sfields[f.name]);
         } catch (error) {
-          console.log(error)
+          console.log(error);
           errors = {
             ...errors,
-            [f.name]: error.toString()
+            [f.name]: error.toString(),
           };
           pass = false;
         }
@@ -125,90 +142,63 @@ export class Form extends React.Component<FormGeneratorInterface, FormState> {
       if (f.required && !sfields[f.name]) {
         errors = {
           ...errors,
-          [f.name]: `Field ${f.name} is required`
+          [f.name]: `Field ${f.name} is required`,
         };
         pass = false;
       }
     }
-    this.setState((state) => ({
-      errors
+    setState((state) => ({
+      ...state,
+      errors,
     }));
     if (pass) {
-      this.props.validate(sfields);
+      validate(sfields);
     }
   };
-  modifyField = ({ name, value }) =>
-    new Promise((resolve, reject) => {
-      this.setState(
-        {
-          fields: {
-            ...this.state.fields,
-            [name]: value
-          },
-          changed: {
-            ...this.state.changed,
-            [name]: true
-          }
-        },
-        resolve
-      );
-    });
-  render() {
-    const {
-      fields,
-      submitText,
-      AlternativeWrapper = FieldWrapper,
-      style = {},
-      className = 'FormGen',
-      validateOnChange
-    } = this.props;
-    const { Submit = SubmitComponent } = this.props;
-    if (new Set([...fields.map((f) => f.name)]).size !== fields.length) {
-      throw new Error('Name properties of form fields must be unique!');
-    }
-    const fieldsRender = fields.map((f, i) => {
-      let ftype = f.fieldType;
-      const RenderField = fieldElements[ftype] as React.ComponentType<any>;
-      return (
-        <AlternativeWrapper field={f} key={i} error={this.state.errors[f.name]}>
-          <RenderField
-            name={f.name}
-            onChange={(e) => {
-              this.modifyField({
-                name: f.name,
-                value: e
-              }).then(() => {
-                if (validateOnChange) {
-                  this.validate();
-                }
-              });
-            }}
-            value={this.state.fields[f.name]}
-            {...f.content}
-          />
-        </AlternativeWrapper>
-      );
-    });
-    return (
-      <div
-        className={className}
-        style={style}
-        onKeyDown={(e) => {
-          if (!validateOnChange && (e.key === 'Enter' || e.keyCode === 13)) {
-            this.validate();
-          }
-        }}
-      >
-        {fieldsRender}
-        {!validateOnChange && (
-          <Submit
-            submitText={submitText}
-            onClick={() => {
-              this.validate();
-            }}
-          />
-        )}
-      </div>
-    );
+  if (new Set([...fields.map((f) => f.name)]).size !== fields.length) {
+    throw new Error('Name properties of form fields must be unique!');
   }
-}
+  const fieldsRender = fields.map((f, i) => {
+    let ftype = f.fieldType;
+    const RenderField = fieldElements[ftype] as React.ComponentType<any>;
+    return (
+      <AlternativeWrapper field={f} key={i} error={state.errors[f.name]}>
+        <RenderField
+          name={f.name}
+          onChange={(e: any) => {
+            modifyField({
+              name: f.name,
+              value: e,
+            });
+            if (validateOnChange) {
+              validateFunction();
+            }
+          }}
+          value={state.fields[f.name]}
+          {...f.content}
+        />
+      </AlternativeWrapper>
+    );
+  });
+  return (
+    <div
+      className={className}
+      style={style}
+      onKeyDown={(e) => {
+        if (!validateOnChange && (e.key === 'Enter' || e.keyCode === 13)) {
+          validateFunction();
+        }
+      }}
+    >
+      {fieldsRender}
+      {!validateOnChange && (
+        <Submit
+          submitText={submitText}
+          onClick={() => {
+            validateFunction();
+          }}
+        />
+      )}
+    </div>
+  );
+};

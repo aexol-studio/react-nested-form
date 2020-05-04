@@ -9,9 +9,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "grunt",
-    "start": "grunt watch",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\""
+    "build": "tsc",
+    "start": "tsc --watch"
   },
   "license": "MIT",
   "devDependencies": {
@@ -22,18 +21,18 @@
     "@types/node": "13.13.4",
     "@types/react": "16.9.34",
     "@types/react-dom": "16.9.7",
-    "grunt": "^1.0.3",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-ts": "^6.0.0-beta.19",
     "prettier": "^2.0.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "typescript": "^3.8.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.13.1",
+    "react-dom": ">=16.13.1"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "moment": "^2.22.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
     "react-json-edit": "^0.3.1",
     "typestyle": "^2.0.1",
     "utility-types": "^3.10.0"

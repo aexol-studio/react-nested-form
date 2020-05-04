@@ -9,6 +9,8 @@
     "declaration": false,
     "removeComments": true,
     "noUnusedLocals": true,
+    "allowSyntheticDefaultImports":true,
+    "esModuleInterop": true,
     "outDir": "build",
     "lib": ["es6", "es7", "dom"],
     "baseUrl": "src"

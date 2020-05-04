@@ -5,28 +5,28 @@ import {
   FieldDefinition,
   SubmitComponent,
   styles,
-  FieldWrapperProps
-} from 'nested-form';
+  FieldWrapperProps,
+} from '../../../src';
 import { style, classes } from 'typestyle';
 const opts = [
   {
     label: 'Helo',
-    value: 1
+    value: 1,
   },
   {
     label: 'Helo2',
-    value: 2
-  }
+    value: 2,
+  },
 ];
 const opts2 = [
   {
     label: 'Helo',
-    value: 1
+    value: 1,
   },
   {
     label: 'Helo2',
-    value: 2
-  }
+    value: 2,
+  },
 ];
 export const CustomInput: typeof Input = (props: FieldDefinition<'string'>) => (
   <input
@@ -36,7 +36,7 @@ export const CustomInput: typeof Input = (props: FieldDefinition<'string'>) => (
       props.onChange(e.target.value);
     }}
     style={{
-      padding: 20
+      padding: 20,
     }}
   />
 );
@@ -47,8 +47,8 @@ export const CustomSubmit: typeof SubmitComponent = ({ submitText, onClick }) =>
 export const BigInput: typeof styles.Input = {
   Input: style({
     padding: 30,
-    fontSize: 20
-  })
+    fontSize: 20,
+  }),
 };
 
 export const RedAutoSuggest: typeof styles.Autosuggest = {
@@ -56,9 +56,9 @@ export const RedAutoSuggest: typeof styles.Autosuggest = {
   datalistSuggest: classes(
     styles.Autosuggest.datalistSuggest,
     style({
-      background: 'red'
+      background: 'red',
     })
-  )
+  ),
 };
 
 const myList = ['Cat', 'Caturday', 'KeyboardCat', 'Dog', 'Crocodile', 'Doge'];
@@ -80,7 +80,7 @@ export type HomeState = {
 
 export class Home extends React.Component<{}, HomeState> {
   state: HomeState = {
-    list: []
+    list: [],
   };
   render() {
     return (
@@ -88,7 +88,7 @@ export class Home extends React.Component<{}, HomeState> {
         style={{
           margin: 'auto',
           width: 320,
-          marginTop: 100
+          marginTop: 100,
         }}
       >
         <Form
@@ -96,24 +96,24 @@ export class Home extends React.Component<{}, HomeState> {
             naa: [
               {
                 hello: 'ddd',
-                sel: 1
+                sel: 1,
               },
               {
                 hello: 'aaa',
-                sel: 2
+                sel: 2,
               },
               {
                 hello: 'ddd',
-                sel: null
-              }
-            ]
+                sel: null,
+              },
+            ],
           }}
           fields={[
             {
               fieldType: 'string',
               name: 'hello',
               content: {
-                pattern: '[a-z]*'
+                pattern: '[a-z]*',
               },
               validate: (e: string) => {
                 if (e && !e.match(/[a-z]/)) {
@@ -121,7 +121,7 @@ export class Home extends React.Component<{}, HomeState> {
                 }
                 return true;
               },
-              required: true
+              required: true,
             },
             {
               fieldType: 'autosuggest',
@@ -131,11 +131,11 @@ export class Home extends React.Component<{}, HomeState> {
                 load: (e) => {
                   // It receives user input and match suggestions from list
                   this.setState({
-                    list: myList.filter((element) => element.match(e))
+                    list: myList.filter((element) => element.match(e)),
                   });
                 },
-                styles: RedAutoSuggest
-              }
+                styles: RedAutoSuggest,
+              },
             },
             {
               fieldType: 'select',
@@ -143,16 +143,16 @@ export class Home extends React.Component<{}, HomeState> {
               content: {
                 placeholder: 'single select',
                 multi: false,
-                options: opts
-              }
+                options: opts,
+              },
             },
             {
               fieldType: 'array',
               name: 'artest',
               content: {
                 placeholder: 'ARRAY',
-                unique: true
-              }
+                unique: true,
+              },
             },
             {
               fieldType: 'nestArray',
@@ -162,7 +162,7 @@ export class Home extends React.Component<{}, HomeState> {
                   {
                     fieldType: 'string',
                     name: 'hello',
-                    content: {}
+                    content: {},
                   },
                   {
                     fieldType: 'select',
@@ -171,11 +171,11 @@ export class Home extends React.Component<{}, HomeState> {
                     content: {
                       placeholder: 'single select',
                       multi: false,
-                      options: opts
-                    }
-                  }
-                ]
-              }
+                      options: opts,
+                    },
+                  },
+                ],
+              },
             },
             {
               fieldType: 'select',
@@ -183,16 +183,16 @@ export class Home extends React.Component<{}, HomeState> {
               content: {
                 placeholder: 'multi select',
                 multi: true,
-                options: opts2
-              }
+                options: opts2,
+              },
             },
             {
               fieldType: 'date',
               name: 'dat',
               content: {
                 maxYear: 2030,
-                minYear: new Date().getFullYear()
-              }
+                minYear: new Date().getFullYear(),
+              },
             },
             {
               fieldType: 'nest',
@@ -202,7 +202,7 @@ export class Home extends React.Component<{}, HomeState> {
                   {
                     fieldType: 'string',
                     name: 'hello',
-                    content: {}
+                    content: {},
                   },
                   {
                     fieldType: 'select',
@@ -210,16 +210,16 @@ export class Home extends React.Component<{}, HomeState> {
                     content: {
                       placeholder: 'single select',
                       multi: false,
-                      options: opts
-                    }
+                      options: opts,
+                    },
                   },
                   {
                     fieldType: 'array',
                     name: 'artest',
                     content: {
                       placeholder: 'ARRAY',
-                      unique: true
-                    }
+                      unique: true,
+                    },
                   },
                   {
                     fieldType: 'select',
@@ -227,12 +227,12 @@ export class Home extends React.Component<{}, HomeState> {
                     content: {
                       placeholder: 'multi select',
                       multi: true,
-                      options: opts2
-                    }
-                  }
-                ]
-              }
-            }
+                      options: opts2,
+                    },
+                  },
+                ],
+              },
+            },
           ]}
           validate={(e) => {
             console.log(e);

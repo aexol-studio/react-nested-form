@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { FieldDescription } from './fields';
 
 export type FieldWrapperProps = {
@@ -6,9 +6,4 @@ export type FieldWrapperProps = {
   error?: string;
 };
 
-export class FieldWrapper extends React.Component<FieldWrapperProps> {
-  render() {
-    const { children } = this.props;
-    return <div>{children}</div>;
-  }
-}
+export const FieldWrapper: React.FC<FieldWrapperProps> = ({ children }) => <div>{children}</div>;

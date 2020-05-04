@@ -7,12 +7,11 @@ export const Nest = ({
   styles: overrideStyles,
   value,
   fields,
-  ...props
 }: FieldDefinition<'nest'>) => (
   <Form
     className={overrideStyles ? overrideStyles.Nest : styles.Nest}
     fields={fields}
-    validate={(e) => {
+    validate={(e: any) => {
       onChange(e);
     }}
     validateOnChange={true}

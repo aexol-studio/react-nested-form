@@ -11,35 +11,33 @@ var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 module.exports = {
   context: sourcePath,
   entry: {
-    app: './index.tsx'
+    app: './index.tsx',
   },
   output: {
     path: outPath,
     filename: 'bundle.js',
     chunkFilename: '[chunkhash].js',
-    publicPath: '/'
+    publicPath: '/',
   },
   target: 'web',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     mainFields: ['module', 'browser', 'main'],
     alias: {
-      app: path.resolve(__dirname, 'src/app/')
-    }
+      app: path.resolve(__dirname, 'src/app/'),
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: isProduction
-          ? 'ts-loader'
-          : ['babel-loader?plugins=react-hot-loader/babel', 'ts-loader']
+        use: 'ts-loader',
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: 'css-loader',
@@ -47,15 +45,15 @@ module.exports = {
               modules: true,
               sourceMap: !isProduction,
               importLoaders: 1,
-              localIdentName: '[local]__[hash:base64:5]'
-            }
-          }
-        ]
+              localIdentName: '[local]__[hash:base64:5]',
+            },
+          },
+        ],
       },
       { test: /\.html$/, use: 'html-loader' },
       { test: /\.(png|svg)$/, use: 'url-loader?limit=10000' },
-      { test: /\.(jpg|gif)$/, use: 'file-loader' }
-    ]
+      { test: /\.(jpg|gif)$/, use: 'file-loader' },
+    ],
   },
   optimization: {
     splitChunks: {
@@ -63,38 +61,38 @@ module.exports = {
       cacheGroups: {
         commons: {
           chunks: 'initial',
-          minChunks: 2
+          minChunks: 2,
         },
         vendors: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
-          priority: -10
-        }
-      }
+          priority: -10,
+        },
+      },
     },
-    runtimeChunk: true
+    runtimeChunk: true,
   },
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: isProduction ? 'production' : 'development', // use 'development' unless process.env.NODE_ENV is defined
-      DEBUG: false
+      DEBUG: false,
     }),
     new WebpackCleanupPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[id].css'
+      chunkFilename: '[id].css',
     }),
     new HtmlWebpackPlugin({
-      template: 'assets/index.html'
-    })
+      template: 'assets/index.html',
+    }),
   ],
   devServer: {
     contentBase: sourcePath,
     hot: true,
     inline: true,
     historyApiFallback: {
-      disableDotRule: true
+      disableDotRule: true,
     },
-    stats: 'minimal'
+    stats: 'minimal',
   },
 };

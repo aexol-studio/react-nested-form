@@ -1,101 +1,95 @@
-import * as React from 'react';
-import * as classnames from 'classnames';
+import React, { useEffect, useState } from 'react';
+import classnames from 'classnames';
 import { Autosuggest as importedStyle } from './style';
 import { FieldDefinition } from '../fields';
 
-export class Autosuggest extends React.Component<
-  FieldDefinition<'autosuggest'>
-> {
-  state = {
+export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
+  value,
+  load,
+  onChange,
+  list = [],
+  name = 'autosuggest',
+  placeholder,
+  initialValue = '',
+  styles: overrideStyles,
+  ...props
+}) => {
+  const [state, setState] = useState({
     showDatalist: false,
     setValue: '',
-    value: ''
-  };
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount() {
-    const { initialValue = '' } = this.props;
-    this.setState({
-      setValue: initialValue
+    value: '',
+  });
+  useEffect(() => {
+    setState({
+      ...state,
+      setValue: initialValue,
     });
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value && this.state.value === '') {
-      this.setState({
-        setValue: nextProps.value
+  }, []);
+  useEffect(() => {
+    if (value && state.value === '') {
+      setState({
+        ...state,
+        setValue: value,
       });
     }
-  }
-  onChange = (e) => {
-    const { load, onChange } = this.props;
-    const newValue = e.target.value;
-    this.setState({ setValue: newValue, showDatalist: true });
+  }, value);
+  const onChangeLocal = (newValue: any) => {
+    setState({ ...state, setValue: newValue, showDatalist: true });
     if (newValue.length > 0) {
       load(newValue);
       onChange(newValue);
     }
   };
-  render() {
-    let {
-      onChange,
-      list = [],
-      name = 'autosuggest',
-      placeholder,
-      initialValue,
-      load,
-      styles: overrideStyles,
-      ...props
-    } = this.props;
-    let styles = {
-      ...importedStyle
+  let styles = {
+    ...importedStyle,
+  };
+  if (overrideStyles) {
+    styles = {
+      ...styles,
+      ...overrideStyles,
     };
-    if (overrideStyles) {
-      styles = {
-        ...styles,
-        ...overrideStyles
-      };
-    }
-    return (
-      <div>
-        <div className={styles.Autosuggest}>
-          <input
-            {...props}
-            onChange={this.onChange}
-            value={this.state.setValue}
-            type="text"
-            list={name}
-            placeholder={placeholder || name}
-          />
-          {list &&
-            this.state.setValue && (
+  }
+  return (
+    <div>
+      <div className={styles.Autosuggest}>
+        <input
+          {...props}
+          onChange={(e) => {
+            onChangeLocal(e.target.value);
+          }}
+          value={state.setValue}
+          type="text"
+          list={name}
+          placeholder={placeholder || name}
+        />
+        {list && state.setValue && (
+          <div
+            className={classnames({
+              [styles.datalistSuggest]: true,
+              [styles.showDataList]: state.showDatalist,
+            })}
+          >
+            {list.map((i, index) => (
               <div
                 className={classnames({
-                  [styles.datalistSuggest]: true,
-                  [styles.showDataList]: this.state.showDatalist
+                  [styles.optionsSuggest]: true,
                 })}
+                key={index}
+                onClick={() => {
+                  setState({
+                    ...state,
+                    setValue: i,
+                    showDatalist: false,
+                  });
+                  onChangeLocal(i);
+                }}
               >
-                {list.map((i, index) => (
-                  <div
-                    className={classnames({
-                      [styles.optionsSuggest]: true
-                    })}
-                    key={index}
-                    onClick={() => {
-                      this.setState({
-                        setValue: i,
-                        showDatalist: false
-                      });
-                      onChange(i);
-                    }}
-                  >
-                    {i}
-                  </div>
-                ))}
+                {i}
               </div>
-            )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
