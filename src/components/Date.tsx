@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import { MultiSelect } from './MultiSelect';
 import { Date as importedStyle } from './style';
 import { FieldDefinition } from '../fields';
+import { Select } from './Select';
 
 export const Date: React.FC<FieldDefinition<'date'>> = ({
   styles: overrideStyles,
@@ -35,35 +35,32 @@ export const Date: React.FC<FieldDefinition<'date'>> = ({
   }));
   return (
     <div className={styles.Date}>
-      <MultiSelect
+      <Select
         name={name}
         options={daysInMonth}
         value={daysInMonth.find((m) => m.value === currentDay)!.value}
         blockEmpty={true}
         noSort={true}
-        multi={false}
         onChange={(e) => {
           onChange(val.date(e));
         }}
       />
-      <MultiSelect
+      <Select
         name={name}
         options={months}
         value={months.find((m) => m.value === currentMonth)!.value}
         blockEmpty={true}
         noSort={true}
-        multi={false}
         onChange={(e) => {
           onChange(val.month(e - 1));
         }}
       />
-      <MultiSelect
+      <Select
         name={name}
         options={yearsToShow}
         value={yearsToShow.find((m) => m.value === currentYear)!.value}
         blockEmpty={true}
         noSort={true}
-        multi={false}
         onChange={(e) => {
           onChange(val.year(e));
         }}

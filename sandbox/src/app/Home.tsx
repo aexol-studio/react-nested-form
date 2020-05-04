@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -142,7 +142,6 @@ export class Home extends React.Component<{}, HomeState> {
               name: 'selectsingle',
               content: {
                 placeholder: 'single select',
-                multi: false,
                 options: opts,
               },
             },
@@ -170,7 +169,6 @@ export class Home extends React.Component<{}, HomeState> {
 
                     content: {
                       placeholder: 'single select',
-                      multi: false,
                       options: opts,
                     },
                   },
@@ -178,11 +176,10 @@ export class Home extends React.Component<{}, HomeState> {
               },
             },
             {
-              fieldType: 'select',
+              fieldType: 'multiselect',
               name: 'select',
               content: {
                 placeholder: 'multi select',
-                multi: true,
                 options: opts2,
               },
             },
@@ -209,7 +206,6 @@ export class Home extends React.Component<{}, HomeState> {
                     name: 'selectsingle',
                     content: {
                       placeholder: 'single select',
-                      multi: false,
                       options: opts,
                     },
                   },
@@ -222,11 +218,10 @@ export class Home extends React.Component<{}, HomeState> {
                     },
                   },
                   {
-                    fieldType: 'select',
-                    name: 'select',
+                    fieldType: 'multiselect',
+                    name: 'multiselect',
                     content: {
                       placeholder: 'multi select',
-                      multi: true,
                       options: opts2,
                     },
                   },

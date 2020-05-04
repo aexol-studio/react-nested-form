@@ -12,8 +12,8 @@ export const Input = ({
     onChange={(e) => {
       onChange(e.target.value);
     }}
-    onBlur={e=>{
-      e.target.checkValidity()
+    onBlur={(e) => {
+      e.target.checkValidity();
     }}
     value={value}
     {...props}

@@ -3,6 +3,7 @@ export * from './Checkbox';
 export * from './Input';
 export * from './InputFile';
 export * from './MultiSelect';
+export * from './Select';
 export * from './Tag';
 export * from './Textarea';
 export * from './Date';

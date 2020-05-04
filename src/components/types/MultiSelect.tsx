@@ -8,11 +8,5 @@ export type SelectInterface = {
   placeholder?: string;
   styles?: typeof styles;
   blockEmpty?: boolean;
-  noSort?:boolean;
-};
-export type SingleSelectInterface = SelectInterface & {
-  multi?: false;
-};
-export type MultiSelectInterface = SelectInterface & {
-  multi: true;
+  noSort?: boolean;
 };

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { FieldDefinition } from '../fields';
 import { Multiselect as importedStyles } from './style';
 
-export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
+export const Select: React.FC<FieldDefinition<'select'>> = ({
   value: fieldValue,
   blockEmpty,
   options,
@@ -18,20 +18,12 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
     inputMatch: '',
   });
 
-  const addValue = (value: any) => {
-    let fv = fieldValue || [];
-    if (!fv) {
-      fv = [];
-    }
-    let vals: any = value;
-    if (vals) {
-      vals = Array.from(new Set([...fv, vals]));
-    }
+  const changeValue = (value: any) => {
     setState({
       ...state,
-      isOpen: true,
+      isOpen: false,
     });
-    onChange(vals);
+    onChange(value);
   };
   if (options.length === 0) {
     fieldValue = null;
@@ -56,13 +48,7 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
   if (!fieldValue) {
     fieldValue = null;
   }
-  if (Array.isArray(fieldValue) && fieldValue.length === 0) {
-    fieldValue = null;
-  }
-  let selectOptions = [...options];
-  if (fieldValue) {
-    selectOptions = selectOptions.filter((o) => !fieldValue.includes(o.value));
-  }
+  let selectOptions = [...options].filter((o) => o.value !== fieldValue);
 
   return (
     <div className={styles.MultiSelect} style={style}>
@@ -80,7 +66,6 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
       )}
       <div
         onClick={() => {
-          console.log(!state.isOpen);
           setState({
             ...state,
             isOpen: !state.isOpen,
@@ -93,31 +78,18 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
       >
         <div className={styles.holderValue}>
           {fieldValue ? (
-            fieldValue.map((value: any, index: number) => (
-              <div
-                className={classnames({
-                  [styles.showValue]: true,
-                  [styles.emptyValue]: !value,
-                })}
-                key={index}
-              >
-                <span className={styles.valueChoosen}>
-                  {value && options.find((o) => o.value === value)
-                    ? options.find((o) => o.value === value)!.label
-                    : 'Error - no value'}
-                </span>
-                <span
-                  className={styles.Delete}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const newValue = fieldValue.filter((i: any) => i !== value);
-                    onChange(newValue);
-                  }}
-                >
-                  ×
-                </span>
-              </div>
-            ))
+            <div
+              className={classnames({
+                [styles.showValue]: true,
+                [styles.emptyValue]: true,
+              })}
+            >
+              <span className={styles.valueChoosen}>
+                {options.find((o) => o.value === fieldValue)
+                  ? options.find((o) => o.value === fieldValue)!.label
+                  : 'Error - no value'}
+              </span>
+            </div>
           ) : (
             <input
               id="placeholder"
@@ -152,7 +124,7 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
                   return (
                     <li
                       onClick={() => {
-                        addValue(value);
+                        changeValue(value);
                       }}
                       key={index}
                     >
@@ -164,7 +136,7 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
                 return (
                   <li
                     onClick={() => {
-                      addValue(value);
+                      changeValue(value);
                     }}
                     key={index}
                   >

@@ -6,12 +6,13 @@ export type FieldType = {
   integer: types.InputInterface;
   float: types.InputInterface;
   text: types.TextareaInterface;
-  select: types.MultiSelectInterface | types.SingleSelectInterface;
+  multiselect: types.SelectInterface;
+  select: types.SelectInterface;
   file: types.FileInterface;
   datetime: types.DatetimeInterface & types.DateInterface & types.TimeInterface;
   time: types.TimeInterface;
   date: types.DateInterface;
-  reference: types.SingleSelectInterface;
+  reference: types.SelectInterface;
   array: types.TagType;
   nest: types.NestInterface;
   nestArray: types.NestArrayInterface;
@@ -64,6 +65,11 @@ export type FieldDescription = (
       content: FieldType['select'];
     }
   | {
+      fieldType: 'multiselect';
+      name: string;
+      content: FieldType['multiselect'];
+    }
+  | {
       fieldType: 'file';
       name: string;
       content: FieldType['file'];
@@ -102,4 +108,5 @@ export type FieldDescription = (
       fieldType: 'nestArray';
       name: string;
       content: FieldType['nestArray'];
-    }) & { required?: boolean; validate?: (e: any) => void; };
+    }
+) & { required?: boolean; validate?: (e: any) => void };
