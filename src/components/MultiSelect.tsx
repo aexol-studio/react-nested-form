@@ -8,7 +8,7 @@ export class MultiSelect extends React.Component<FieldDefinition<'select'>> {
     isOpen: false,
     inputMatch: null
   };
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener('click', this.documentClickHandler, true);
   }
 
