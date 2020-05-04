@@ -37,7 +37,6 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
     setState({ ...state, setValue: newValue, showDatalist: true });
     if (newValue.length > 0) {
       load(newValue);
-      onChange(newValue);
     }
   };
   let styles = {
@@ -52,6 +51,18 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
   return (
     <div>
       <div className={styles.Autosuggest}>
+        {state.showDatalist && (
+          <div
+            onClick={() => setState({ ...state, showDatalist: false })}
+            style={{
+              position: 'fixed',
+              width: '100vw',
+              height: '100vh',
+              top: 0,
+              left: 0,
+            }}
+          />
+        )}
         <input
           {...props}
           onChange={(e) => {
@@ -81,7 +92,7 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
                     setValue: i,
                     showDatalist: false,
                   });
-                  onChangeLocal(i);
+                  onChange(i);
                 }}
               >
                 {i}

@@ -16,5 +16,5 @@
     "baseUrl": "src",
     "rootDir": "src"
   },
-  "exclude": ["lib", "build", "node_modules","example"]
+  "exclude": ["lib", "build", "node_modules","example","sandbox"]
 }
