@@ -1,5 +1,5 @@
 .DS_Store
 node_modules
 .tscache
-example
+sandbox
 src
