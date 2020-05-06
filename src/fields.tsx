@@ -18,7 +18,11 @@ export type FieldType = {
   nest: types.NestInterface;
   nestArray: types.NestArrayInterface;
 };
-export type FieldValue = {
+
+export type Keyable = {
+  [P in keyof FieldType]: any;
+};
+export interface FieldValue extends Keyable {
   autosuggest: {
     onChange: (e: any) => void;
     value: any;
@@ -83,7 +87,7 @@ export type FieldValue = {
     onChange: (e: any) => void;
     value: any;
   };
-};
+}
 export type FieldDefinition<Type extends keyof FieldType> = {
   name: string;
 } & FieldType[Type] &

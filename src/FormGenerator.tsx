@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as components from './components';
 
-import { FieldDescription } from './fields';
+import { FieldDescription, FieldValue } from './fields';
 
 import { FieldWrapper, FieldWrapperProps } from './FieldWrapper';
 import { SubmitComponent } from './SubmitComponent';
@@ -30,14 +30,14 @@ export type ValuesDescription = {
   [x: string]: any;
 };
 
+interface FieldsProps {
+  [name: string]: FieldDescription;
+}
+
 export interface FormGeneratorInterface {
-  fields: Array<FieldDescription>;
   validate: Function;
   style?: Object;
   className?: string;
-  values?: {
-    [x: string]: any;
-  };
   sendFullObject?: boolean;
   isFormData?: boolean;
   AlternativeWrapper?: React.ComponentType<FieldWrapperProps>;
@@ -57,8 +57,33 @@ export type FormState = {
     [x: string]: boolean;
   };
 };
+type GetValueType<Z> = Z extends keyof FieldValue ? FieldValue[Z]['value'] : false;
+function fieldsToValues<Z>({}: {
+  fields: Z | FieldsProps;
+  values: {
+    [P in keyof Z]: Z[P] extends FieldDescription ? GetValueType<Z[P]['fieldType']> : never;
+  };
+}) {}
 
-export const Form: React.FC<FormGeneratorInterface> = ({
+fieldsToValues({
+  fields: {
+    name: {
+      fieldType: 'string',
+      name: 'name',
+      content: {},
+    },
+    costam: {
+      fieldType: 'boolean',
+      name: 'costam',
+      content: {},
+    },
+  },
+  values: {
+    costam: true,
+    name: 'Ass',
+  },
+});
+export function Form<Z extends FieldsProps>({
   fields,
   submitText = 'Submit',
   AlternativeWrapper = FieldWrapper,
@@ -70,7 +95,12 @@ export const Form: React.FC<FormGeneratorInterface> = ({
   values,
   sendFullObject,
   validate,
-}) => {
+}: FormGeneratorInterface & {
+  fields: Z | FieldsProps;
+  values?: {
+    [P in keyof Z]?: Z[P] extends FieldDescription ? GetValueType<Z[P]['fieldType']> : never;
+  };
+}) {
   const [fieldValues, setFieldValues] = useState<Record<string, any>>({});
   const [changed, setChanged] = useState<Record<string, boolean>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -83,7 +113,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
   const receiveFields = (values: ValuesDescription) => {
     let updateDict: Record<string, any> = {};
     let changesDict = { ...changed };
-    for (var { name } of fields) {
+    for (const name of Object.keys(fields)) {
       updateDict[name] = values[name];
       changesDict[name] = false;
     }
@@ -117,7 +147,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
     }
     let pass = true;
     let errors = {};
-    for (var f of fields) {
+    for (var f of Object.values(fields)) {
       if (f.validate) {
         try {
           f.validate(sfields[f.name]);
@@ -143,10 +173,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
       validate(sfields);
     }
   };
-  if (new Set([...fields.map((f) => f.name)]).size !== fields.length) {
-    throw new Error('Name properties of form fields must be unique!');
-  }
-  const fieldsRender = fields.map((f, i) => {
+  const fieldsRender = Object.values(fields).map((f, i) => {
     let ftype = f.fieldType;
     const RenderField = fieldElements[ftype] as React.ComponentType<any>;
     return (
@@ -189,4 +216,4 @@ export const Form: React.FC<FormGeneratorInterface> = ({
       )}
     </div>
   );
-};
+}

@@ -8,7 +8,6 @@ import {
   FieldWrapperProps,
 } from '../../../src';
 import { style, classes } from 'typestyle';
-import moment from 'moment';
 const opts = [
   {
     label: 'Helo',
@@ -108,10 +107,9 @@ export class Home extends React.Component<{}, HomeState> {
                 sel: null,
               },
             ],
-            dat: moment(),
           }}
-          fields={[
-            {
+          fields={{
+            hello: {
               fieldType: 'string',
               name: 'hello',
               content: {
@@ -125,7 +123,7 @@ export class Home extends React.Component<{}, HomeState> {
               },
               required: true,
             },
-            {
+            suggestions: {
               fieldType: 'autosuggest',
               name: 'suggestions',
               content: {
@@ -139,7 +137,7 @@ export class Home extends React.Component<{}, HomeState> {
                 styles: RedAutoSuggest,
               },
             },
-            {
+            selectsingle: {
               fieldType: 'select',
               name: 'selectsingle',
               content: {
@@ -147,7 +145,7 @@ export class Home extends React.Component<{}, HomeState> {
                 options: opts,
               },
             },
-            {
+            artest: {
               fieldType: 'array',
               name: 'artest',
               content: {
@@ -155,17 +153,17 @@ export class Home extends React.Component<{}, HomeState> {
                 unique: true,
               },
             },
-            {
+            naa: {
               fieldType: 'nestArray',
               name: 'naa',
               content: {
-                fields: [
-                  {
+                fields: {
+                  hello: {
                     fieldType: 'string',
                     name: 'hello',
                     content: {},
                   },
-                  {
+                  sel: {
                     fieldType: 'select',
                     name: 'sel',
 
@@ -174,10 +172,10 @@ export class Home extends React.Component<{}, HomeState> {
                       options: opts,
                     },
                   },
-                ],
+                },
               },
             },
-            {
+            select: {
               fieldType: 'multiselect',
               name: 'select',
               content: {
@@ -185,7 +183,7 @@ export class Home extends React.Component<{}, HomeState> {
                 options: opts2,
               },
             },
-            {
+            datetime: {
               fieldType: 'datetime',
               name: 'dat',
               content: {
@@ -193,17 +191,17 @@ export class Home extends React.Component<{}, HomeState> {
                 minYear: new Date().getFullYear(),
               },
             },
-            {
+            nest: {
               fieldType: 'nest',
               name: 'nest',
               content: {
-                fields: [
-                  {
+                fields: {
+                  hello: {
                     fieldType: 'string',
                     name: 'hello',
                     content: {},
                   },
-                  {
+                  selectsingle: {
                     fieldType: 'select',
                     name: 'selectsingle',
                     content: {
@@ -211,7 +209,7 @@ export class Home extends React.Component<{}, HomeState> {
                       options: opts,
                     },
                   },
-                  {
+                  artest: {
                     fieldType: 'array',
                     name: 'artest',
                     content: {
@@ -219,7 +217,7 @@ export class Home extends React.Component<{}, HomeState> {
                       unique: true,
                     },
                   },
-                  {
+                  multiselect: {
                     fieldType: 'multiselect',
                     name: 'multiselect',
                     content: {
@@ -227,10 +225,10 @@ export class Home extends React.Component<{}, HomeState> {
                       options: opts2,
                     },
                   },
-                ],
+                },
               },
             },
-          ]}
+          }}
           validate={(e) => {
             console.log(e);
           }}
