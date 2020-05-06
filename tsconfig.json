@@ -13,8 +13,8 @@
     "esModuleInterop": true,
     "outDir": "lib",
     "lib": ["es6", "es7", "dom"],
-    "baseUrl": "src",
-    "rootDir": "src"
+    "rootDir": "./src",
+    "baseUrl": "./src/",
   },
   "exclude": ["lib", "build", "node_modules","example","sandbox"]
 }
