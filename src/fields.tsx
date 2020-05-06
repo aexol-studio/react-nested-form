@@ -1,4 +1,5 @@
 import * as types from './components/types';
+import { Moment } from 'moment';
 export type FieldType = {
   autosuggest: types.AutosuggestInterface;
   string: types.InputInterface;
@@ -17,11 +18,76 @@ export type FieldType = {
   nest: types.NestInterface;
   nestArray: types.NestArrayInterface;
 };
+export type FieldValue = {
+  autosuggest: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+  string: {
+    onChange: (e: string) => void;
+    value: string;
+  };
+  boolean: {
+    onChange: (e: boolean) => void;
+    value: boolean;
+  };
+  integer: {
+    onChange: (e: number) => void;
+    value: number;
+  };
+  float: {
+    onChange: (e: number) => void;
+    value: number;
+  };
+  text: {
+    onChange: (e: string) => void;
+    value: string;
+  };
+  multiselect: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+  select: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+  file: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+  datetime: {
+    onChange: (e: Moment) => void;
+    value: Moment;
+  };
+  time: {
+    onChange: (e: string) => void;
+    value: string;
+  };
+  date: {
+    onChange: (e: Moment) => void;
+    value: Moment;
+  };
+  reference: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+  array: {
+    onChange: (e: any[]) => void;
+    value: any[];
+  };
+  nest: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+  nestArray: {
+    onChange: (e: any) => void;
+    value: any;
+  };
+};
 export type FieldDefinition<Type extends keyof FieldType> = {
   name: string;
-  onChange: (e: any) => void;
-  value: any;
-} & FieldType[Type];
+} & FieldType[Type] &
+  FieldValue[Type];
 
 export type FieldDescription = (
   | {

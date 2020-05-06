@@ -71,45 +71,35 @@ export const Form: React.FC<FormGeneratorInterface> = ({
   sendFullObject,
   validate,
 }) => {
-  const [state, setState] = useState<FormState>({
-    errors: {},
-    changed: {},
-    fields: {},
-  });
+  const [fieldValues, setFieldValues] = useState<Record<string, any>>({});
+  const [changed, setChanged] = useState<Record<string, boolean>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (values) {
       receiveFields(values);
     }
-  }, [JSON.stringify(values)]);
-
+  }, []);
   const receiveFields = (values: ValuesDescription) => {
     let updateDict: Record<string, any> = {};
-    let changesDict = { ...state.changed };
+    let changesDict = { ...changed };
     for (var { name } of fields) {
       updateDict[name] = values[name];
       changesDict[name] = false;
     }
-    setState({ ...state, fields: updateDict, changed: changesDict });
+    setChanged(changesDict);
+    setFieldValues(updateDict);
   };
-  const modifyField = ({ name, value }: { name: string; value: any }) =>
-    setState({
-      ...state,
-      fields: {
-        ...state.fields,
-        [name]: value,
-      },
-      changed: {
-        ...state.changed,
-        [name]: true,
-      },
-    });
+  const modifyField = ({ name, value }: { name: string; value: any }) => {
+    setFieldValues((fv) => ({ ...fv, [name]: value }));
+    setChanged((ch) => ({ ...ch, [name]: true }));
+  };
   const validateFunction = () => {
     let sfields = {
-      ...state.fields,
+      ...fieldValues,
     };
     if (!sendFullObject) {
-      const filteredValidate = Object.keys(sfields).filter((k) => !!state.changed[k]);
+      const filteredValidate = Object.keys(sfields).filter((k) => !!changed[k]);
       sfields = filteredValidate.reduce((a, b) => {
         a[b] = sfields[b];
         return a;
@@ -148,10 +138,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
         pass = false;
       }
     }
-    setState((state) => ({
-      ...state,
-      errors,
-    }));
+    setErrors(errors);
     if (pass) {
       validate(sfields);
     }
@@ -163,7 +150,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
     let ftype = f.fieldType;
     const RenderField = fieldElements[ftype] as React.ComponentType<any>;
     return (
-      <AlternativeWrapper field={f} key={i} error={state.errors[f.name]}>
+      <AlternativeWrapper field={f} key={i} error={errors[f.name]}>
         <RenderField
           name={f.name}
           onChange={(e: any) => {
@@ -175,7 +162,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
               validateFunction();
             }
           }}
-          value={state.fields[f.name]}
+          value={fieldValues[f.name]}
           {...f.content}
         />
       </AlternativeWrapper>

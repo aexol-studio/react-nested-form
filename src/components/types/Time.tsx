@@ -1,4 +1,4 @@
-import * as styles from '../style/Time'
+import * as styles from '../style/Time';
 export type TimeInterface = {
-  styles?: typeof styles
+  styles?: typeof styles;
 };

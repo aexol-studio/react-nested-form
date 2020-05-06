@@ -8,6 +8,7 @@ import {
   FieldWrapperProps,
 } from '../../../src';
 import { style, classes } from 'typestyle';
+import moment from 'moment';
 const opts = [
   {
     label: 'Helo',
@@ -107,6 +108,7 @@ export class Home extends React.Component<{}, HomeState> {
                 sel: null,
               },
             ],
+            dat: moment(),
           }}
           fields={[
             {
@@ -184,7 +186,7 @@ export class Home extends React.Component<{}, HomeState> {
               },
             },
             {
-              fieldType: 'date',
+              fieldType: 'datetime',
               name: 'dat',
               content: {
                 maxYear: 2030,

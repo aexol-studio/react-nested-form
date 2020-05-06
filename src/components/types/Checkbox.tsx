@@ -1,4 +1,4 @@
-import * as styles from '../style/Checkbox'
+import * as styles from '../style/Checkbox';
 export type CheckboxInterface = {
-  styles?: typeof styles
+  styles?: typeof styles;
 };

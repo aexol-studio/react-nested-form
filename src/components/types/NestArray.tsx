@@ -1,2 +1,2 @@
 import { NestInterface } from './Nest';
-export type NestArrayInterface = NestInterface 
+export type NestArrayInterface = NestInterface;
