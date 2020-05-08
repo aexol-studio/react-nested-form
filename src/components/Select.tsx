@@ -10,6 +10,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
   onChange,
   noSort,
   placeholder,
+  search,
   styles: overrideStyles,
   style = {},
 }) => {
@@ -77,32 +78,59 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
         })}
       >
         <div className={styles.holderValue}>
-          {fieldValue ? (
-            <div
-              className={classnames({
-                [styles.showValue]: true,
-                [styles.emptyValue]: true,
-              })}
-            >
-              <span className={styles.valueChoosen}>
-                {options.find((o) => o.value === fieldValue)
-                  ? options.find((o) => o.value === fieldValue)!.label
-                  : 'Error - no value'}
-              </span>
-            </div>
-          ) : (
-            <input
-              id="placeholder"
-              placeholder={placeholder}
-              className={styles.placeholderValue}
-              onChange={(e) =>
-                setState({
-                  ...state,
-                  inputMatch: e.target.value,
-                })
-              }
-            />
-          )}
+          {fieldValue
+            ? search
+              ? (
+                <div
+                  className={classnames({
+                    [styles.showValue]: true,
+                    [styles.emptyValue]: true
+                  })}
+                >
+                  <span className={styles.valueChoosen}>
+                    {options.find((o) => o.value === fieldValue)
+                      ? options.find((o) => o.value === fieldValue)!.label
+                      : 'Error - no value'}
+                  </span>
+                  <span
+                    className={styles.Delete}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const newValue = null;
+                      onChange(newValue);
+                    }}
+                  >
+                    ×
+                  </span>
+                </div>
+              )
+              : (
+                <div
+                  className={classnames({
+                    [styles.showValue]: true,
+                    [styles.emptyValue]: true,
+                  })}
+                >
+                  <span className={styles.valueChoosen}>
+                    {options.find((o) => o.value === fieldValue)
+                      ? options.find((o) => o.value === fieldValue)!.label
+                      : 'Error - no value'}
+                  </span>
+                </div>
+              )
+            : (
+              <input
+                id="placeholder"
+                placeholder={placeholder}
+                className={styles.placeholderValue}
+                onChange={(e) =>
+                  setState({
+                    ...state,
+                    inputMatch: e.target.value,
+                  })
+                }
+              />
+            )}
         </div>
         <span
           className={classnames({
