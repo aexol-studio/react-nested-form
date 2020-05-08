@@ -145,6 +145,7 @@ export class Home extends React.Component<{}, HomeState> {
               content: {
                 placeholder: 'single select',
                 options: opts,
+                search: true
               },
             },
             {

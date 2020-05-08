@@ -9,4 +9,5 @@ export type SelectInterface = {
   styles?: typeof styles;
   blockEmpty?: boolean;
   noSort?: boolean;
+  search?: boolean;
 };
