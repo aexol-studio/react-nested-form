@@ -32,7 +32,7 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
         setValue: value,
       });
     }
-  }, value);
+  }, [value]);
   const onChangeLocal = (newValue: any) => {
     setState({ ...state, setValue: newValue, showDatalist: true });
     if (newValue.length > 0) {
