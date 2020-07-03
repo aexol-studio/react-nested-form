@@ -18,6 +18,8 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
     showDatalist: false,
     setValue: '',
     value: '',
+    focusedValue: '',
+    selectedIndex: -1,
   });
   useEffect(() => {
     setState({
@@ -34,9 +36,42 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
     }
   }, [value]);
   const onChangeLocal = (newValue: any) => {
-    setState({ ...state, setValue: newValue, showDatalist: true });
+    setState({
+      ...state,
+      setValue: newValue,
+      showDatalist: true,
+      focusedValue: '',
+      selectedIndex: -1,
+    });
     if (newValue.length > 0) {
       load(newValue);
+    }
+  };
+  const onKeyDownHandler = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown' || e.keyCode === 40) {
+      if (state.selectedIndex > -1) {
+        setState((oldState) => ({
+          ...state,
+          selectedIndex: Math.min(oldState.selectedIndex + 1, list.length - 1),
+          focusedValue: list[Math.min(oldState.selectedIndex + 1, list.length - 1)],
+        }));
+      } else {
+        setState({ ...state, focusedValue: list[0], selectedIndex: 0 });
+      }
+    } else if (e.key === 'ArrowUp' || e.keyCode === 38) {
+      if (state.selectedIndex > -1) {
+        setState((oldState) => ({
+          ...state,
+          selectedIndex: Math.max(oldState.selectedIndex - 1, 0),
+          focusedValue: list[Math.max(oldState.selectedIndex - 1, 0)],
+        }));
+      }
+    } else if (e.key === 'Enter' || e.keyCode === 13) {
+      setState({ ...state, setValue: state.focusedValue, showDatalist: false });
+      onChange(state.focusedValue);
+      e.stopPropagation();
+    } else if (e.key === 'Escape' || e.keyCode === 27) {
+      setState({ ...state, showDatalist: false });
     }
   };
   let styles = {
@@ -72,6 +107,8 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
           type="text"
           list={name}
           placeholder={placeholder || name}
+          autoComplete="off"
+          onKeyDown={onKeyDownHandler}
         />
         {list && state.setValue && (
           <div
@@ -84,6 +121,7 @@ export const Autosuggest: React.FC<FieldDefinition<'autosuggest'>> = ({
               <div
                 className={classnames({
                   [styles.optionsSuggest]: true,
+                  active: state.focusedValue && state.focusedValue === i,
                 })}
                 key={index}
                 onClick={() => {

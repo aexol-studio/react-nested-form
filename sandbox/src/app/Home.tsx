@@ -133,7 +133,7 @@ export class Home extends React.Component<{}, HomeState> {
                 load: (e) => {
                   // It receives user input and match suggestions from list
                   this.setState({
-                    list: myList.filter((element) => element.match(e)),
+                    list: myList.filter((element) => element.toLowerCase().match(e.toLowerCase())),
                   });
                 },
                 styles: RedAutoSuggest,
@@ -145,7 +145,7 @@ export class Home extends React.Component<{}, HomeState> {
               content: {
                 placeholder: 'single select',
                 options: opts,
-                search: true
+                search: true,
               },
             },
             {

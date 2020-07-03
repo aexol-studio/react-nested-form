@@ -44,6 +44,7 @@ export interface FormGeneratorInterface {
   Submit?: React.ComponentType<any>;
   submitText?: string;
   validateOnChange?: boolean;
+  requiredErrorText?: string;
 }
 
 export type FormState = {
@@ -70,6 +71,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
   values,
   sendFullObject,
   validate,
+  requiredErrorText,
 }) => {
   const [fieldValues, setFieldValues] = useState<Record<string, any>>({});
   const [changed, setChanged] = useState<Record<string, boolean>>({});
@@ -133,7 +135,7 @@ export const Form: React.FC<FormGeneratorInterface> = ({
       if (f.required && !sfields[f.name]) {
         errors = {
           ...errors,
-          [f.name]: `Field ${f.name} is required`,
+          [f.name]: requiredErrorText ? requiredErrorText : `Field ${f.name} is required`,
         };
         pass = false;
       }
