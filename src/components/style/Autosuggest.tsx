@@ -1,7 +1,7 @@
 import { style } from 'typestyle';
 
 export const Autosuggest = style({
-  position: 'relative'
+  position: 'relative',
 });
 
 export const datalistSuggest = style({
@@ -12,11 +12,11 @@ export const datalistSuggest = style({
   display: 'none',
   border: '1px solid #d9d9d9',
   borderTop: 'none',
-  zIndex: 1
+  zIndex: 1,
 });
 
 export const showDataList = style({
-  display: 'block'
+  display: 'block',
 });
 
 export const optionsSuggest = style({
@@ -25,9 +25,9 @@ export const optionsSuggest = style({
   zIndex: 2,
   transition: '0.35s ease-out',
   $nest: {
-    '&:hover': {
+    '&:hover, &.active': {
       background: '#ccc',
-      color: '#fff'
-    }
-  }
+      color: '#fff',
+    },
+  },
 });
