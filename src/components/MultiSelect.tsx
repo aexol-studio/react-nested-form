@@ -123,6 +123,7 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
               id="placeholder"
               placeholder={placeholder}
               className={styles.placeholderValue}
+              autoComplete="off"
               onChange={(e) =>
                 setState({
                   ...state,

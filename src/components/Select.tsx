@@ -17,6 +17,8 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
   const [state, setState] = useState({
     isOpen: false,
     inputMatch: '',
+    focusedValue: { label: '', value: 'any' },
+    selectedIndex: -1,
   });
 
   const changeValue = (value: any) => {
@@ -37,6 +39,33 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
   if (!blockEmpty) {
     options = [{ label: '-------------', value: null }, ...options];
   }
+  const onKeyDownHandler = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowDown' || e.keyCode === 40) {
+      if (state.selectedIndex > -1) {
+        setState((oldState) => ({
+          ...state,
+          selectedIndex: Math.min(oldState.selectedIndex + 1, options.length - 1),
+          focusedValue: options[Math.min(oldState.selectedIndex + 1, options.length - 1)],
+        }));
+      } else {
+        setState({ ...state, isOpen: true, focusedValue: options[0], selectedIndex: 0 });
+      }
+    } else if (e.key === 'ArrowUp' || e.keyCode === 38) {
+      if (state.selectedIndex > -1) {
+        setState((oldState) => ({
+          ...state,
+          selectedIndex: Math.max(oldState.selectedIndex - 1, 0),
+          focusedValue: options[Math.max(oldState.selectedIndex - 1, 0)],
+        }));
+      }
+    } else if (e.key === 'Enter' || e.keyCode === 13) {
+      setState({ ...state, isOpen: false });
+      changeValue(state.focusedValue.value);
+      e.stopPropagation();
+    } else if (e.key === 'Escape' || e.keyCode === 27) {
+      setState({ ...state, isOpen: false });
+    }
+  };
   let styles = {
     ...importedStyles,
   };
@@ -128,6 +157,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
                   inputMatch: e.target.value,
                 })
               }
+              onKeyDown={onKeyDownHandler}
             />
           )}
         </div>
@@ -150,6 +180,10 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
                 .map(({ label, value }, index) => {
                   return (
                     <li
+                      className={classnames({
+                        [styles.Li]: true,
+                        active: state.focusedValue && state.focusedValue.value === value,
+                      })}
                       onClick={() => {
                         changeValue(value);
                       }}
@@ -162,6 +196,10 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
             : selectOptions.map(({ label, value }, index) => {
                 return (
                   <li
+                    className={classnames({
+                      [styles.Li]: true,
+                      active: state.focusedValue && state.focusedValue.value === value,
+                    })}
                     onClick={() => {
                       changeValue(value);
                     }}
