@@ -84,7 +84,7 @@ export const Li = style({
   transition: '0.35 ease-out',
   color: 'inherit',
   $nest: {
-    '&:hover': {
+    '&:hover, &.active': {
       background: '#ccc',
       color: '#fff',
     },
