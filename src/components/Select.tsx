@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
 import { FieldDefinition } from '../fields';
-import { Multiselect as importedStyles } from './style';
+import { MultiSelect as importedStyles } from './style';
 
 export const Select: React.FC<FieldDefinition<'select'>> = ({
   value: fieldValue,

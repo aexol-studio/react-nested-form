@@ -3,7 +3,7 @@ import * as Checkbox from './Checkbox';
 import * as Date from './Date';
 import * as Datetime from './Datetime';
 import * as Input from './Input';
-import * as Multiselect from './Multiselect';
+import * as MultiSelect from './MultiSelect';
 import * as Tag from './Tag';
 import * as Textarea from './Textarea';
 import * as Time from './Time';
@@ -15,10 +15,10 @@ export {
   Input,
   Date,
   Datetime,
-  Multiselect,
+  MultiSelect,
   Tag,
   Textarea,
   Time,
   Nest,
-  NestArray
+  NestArray,
 };
