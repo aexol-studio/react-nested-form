@@ -52,6 +52,16 @@ export const BigInput: typeof styles.Input = {
   }),
 };
 
+export const OptionStyles: typeof styles.Option = {
+  ...styles.Option,
+  Option: classes(styles.Option.Option, style({
+    padding: '5px 30px',
+    fontSize: 20,
+    color: 'red',
+    textTransform: 'uppercase',
+  })),
+};
+
 export const RedAutoSuggest: typeof styles.Autosuggest = {
   ...styles.Autosuggest,
   datalistSuggest: classes(
@@ -184,6 +194,16 @@ export class Home extends React.Component<{}, HomeState> {
               content: {
                 placeholder: 'multi select',
                 options: opts2,
+              },
+            },
+            {
+              fieldType: 'option',
+              name: 'option',
+              content: {
+                options: myList,
+                prefferedOptions: myList.slice(0,2),
+                showMoreText: 'more options',
+                styles: OptionStyles,
               },
             },
             {

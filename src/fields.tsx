@@ -17,6 +17,7 @@ export type FieldType = {
   array: types.TagType;
   nest: types.NestInterface;
   nestArray: types.NestArrayInterface;
+  option: types.OptionInterface;
 };
 export type FieldValue = {
   autosuggest: {
@@ -50,6 +51,10 @@ export type FieldValue = {
   select: {
     onChange: (e: any) => void;
     value: any;
+  };
+  option: {
+    onChange: (e: string) => void;
+    value: string;
   };
   file: {
     onChange: (e: any) => void;
@@ -129,6 +134,11 @@ export type FieldDescription = (
       fieldType: 'select';
       name: string;
       content: FieldType['select'];
+    }
+  | {
+      fieldType: 'option';
+      name: string;
+      content: FieldType['option'];
     }
   | {
       fieldType: 'multiselect';
