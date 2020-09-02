@@ -9,6 +9,7 @@ import * as Textarea from './Textarea';
 import * as Time from './Time';
 import * as Nest from './Nest';
 import * as NestArray from './NestArray';
+import * as Option from './Option';
 export {
   Autosuggest,
   Checkbox,
@@ -21,4 +22,5 @@ export {
   Time,
   Nest,
   NestArray,
+  Option,
 };

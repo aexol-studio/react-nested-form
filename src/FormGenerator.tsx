@@ -24,6 +24,7 @@ const fieldElements = {
   array: components.Tag,
   nest: components.Nest,
   nestArray: components.NestArray,
+  option: components.Option,
 };
 
 export type ValuesDescription = {

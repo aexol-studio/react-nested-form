@@ -11,6 +11,7 @@ export * from './Time';
 export * from './Datetime';
 export * from './Nest';
 export * from './NestArray';
+export * from './Option';
 import * as styles from './style';
 import * as types from './types';
 export { styles, types };
