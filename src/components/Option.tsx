@@ -34,8 +34,8 @@ export const Option: React.FC<FieldDefinition<'option'>> = ({
     <div className={styles.OptionContainer} style={style}>
       {(!prefferedOptions || prefferedOptions.length === 0 || showAll) && options.map(el => {
           return (
-              <button onClick={() => changeValue(el)} className={classnames(styles.Option, {
-              active: activeValue === el})}>{el}</button>
+              <button onClick={() => changeValue(el.value)} className={classnames(styles.Option, {
+              active: activeValue === el.value})}>{el}</button>
           )
       })}
       {prefferedOptions && prefferedOptions.length > 0 && !showAll && <div className={styles.PrefferedOptionsContainer}>
@@ -43,8 +43,8 @@ export const Option: React.FC<FieldDefinition<'option'>> = ({
           {
             prefferedOptions.map(el => {
               return (
-                  <button onClick={() => changeValue(el)} className={classnames(styles.Option, {
-                  active: activeValue === el})}>{el}</button>
+                  <button onClick={() => changeValue(el.value)} className={classnames(styles.Option, {
+                  active: activeValue === el.value})}>{el.label}</button>
               )
           })}
         </div>

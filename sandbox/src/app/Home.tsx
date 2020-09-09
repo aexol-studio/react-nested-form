@@ -200,8 +200,8 @@ export class Home extends React.Component<{}, HomeState> {
               fieldType: 'option',
               name: 'option',
               content: {
-                options: myList,
-                prefferedOptions: myList.slice(0,2),
+                options: opts,
+                prefferedOptions: opts.slice(0,2),
                 showMoreText: 'more options',
                 styles: OptionStyles,
               },
