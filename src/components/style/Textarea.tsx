@@ -1,5 +1,5 @@
-import { style } from "typestyle";
+import { style } from 'typestyle';
 
 export const Textarea = style({
-    width:'100%'
-})
+  width: '100%',
+});

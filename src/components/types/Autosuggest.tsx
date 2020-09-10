@@ -4,5 +4,6 @@ export interface AutosuggestInterface {
   list: Array<string>;
   placeholder?: string;
   initialValue?: string;
+  label?: string;
   styles?: typeof styles;
 }

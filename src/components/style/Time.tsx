@@ -1,5 +1,5 @@
-import { style } from "typestyle";
+import { style } from 'typestyle';
 
 export const Time = style({
-    position:'relative'
-})
+  position: 'relative',
+});

@@ -7,6 +7,8 @@ export const Checkbox: React.FC<FieldDefinition<'boolean'>> = ({
   name,
   value,
   onChange,
+  description,
+  descriptionPosition,
   styles: overrideStyles,
 }) => {
   let styles = {
@@ -25,7 +27,9 @@ export const Checkbox: React.FC<FieldDefinition<'boolean'>> = ({
         onChange(!value);
       }}
     >
-      <label>{name}</label>
+      {description && descriptionPosition === 'left' && (
+        <span className={classnames(styles.Description, { ['left']: true })}>{description}</span>
+      )}
       <div className={styles.border}>
         <div
           className={classnames({
@@ -34,6 +38,9 @@ export const Checkbox: React.FC<FieldDefinition<'boolean'>> = ({
           })}
         />
       </div>
+      {description && descriptionPosition === 'right' && (
+        <span className={classnames(styles.Description, { ['right']: true })}>{description}</span>
+      )}
     </div>
   );
 };

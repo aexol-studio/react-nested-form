@@ -5,5 +5,6 @@ export type InputInterface = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
+  label?: string;
   styles?: typeof styles;
 };

@@ -10,5 +10,6 @@ export type OptionInterface = {
   }>;
   showMoreText?: string;
   style?: Object;
+  label?: string;
   styles?: typeof styles;
 };

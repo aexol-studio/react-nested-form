@@ -15,18 +15,18 @@ export const Option = style({
   backgroundColor: 'white',
   cursor: 'pointer',
   $nest: {
-      '&.active': {
-        border: '1px solid blue',
-      }
-  }
+    '&.active': {
+      border: '1px solid blue',
+    },
+  },
 });
 
 export const PrefferedOptionsContainer = style({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start'
-})
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+});
 
 export const ShowMoreButton = style({
-    margin: '5px 0',
-})
+  margin: '5px 0',
+});

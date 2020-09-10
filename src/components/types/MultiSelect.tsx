@@ -10,4 +10,5 @@ export type SelectInterface = {
   blockEmpty?: boolean;
   noSort?: boolean;
   search?: boolean;
+  label?: string;
 };

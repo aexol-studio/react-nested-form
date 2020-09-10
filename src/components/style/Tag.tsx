@@ -2,13 +2,13 @@ import { style } from 'typestyle';
 
 export const Tag = style({
   position: 'relative',
-  marginBottom: 15
+  marginBottom: 15,
 });
 
 export const holderSelect = style({
   position: 'relative',
   cursor: 'pointer',
-  fontSize: 14
+  fontSize: 14,
 });
 
 export const holderValue = style({
@@ -16,7 +16,7 @@ export const holderValue = style({
   boxSizing: 'border-box',
   color: '#000',
   padding: '0 35px 0 0',
-  textAlign: 'left'
+  textAlign: 'left',
 });
 
 export const placeholderValue = style({
@@ -30,7 +30,7 @@ export const placeholderValue = style({
   textAlign: 'left',
   fontFamily: 'Roboto',
   fontWeight: 100,
-  letterSpacing: 1.2
+  letterSpacing: 1.2,
 });
 
 export const showValue = style({
@@ -42,11 +42,11 @@ export const showValue = style({
   display: 'inline-block',
   lineHeight: 1.4,
   padding: '5px 15px',
-  margin: '5px 5px 5px 0'
+  margin: '5px 5px 5px 0',
 });
 
 export const valueChosen = style({
-  marginRight: 5
+  marginRight: 5,
 });
 
 export const Delete = style({
@@ -54,5 +54,5 @@ export const Delete = style({
   top: 0,
   right: 0,
   color: 'white',
-  padding: '3px 5px'
+  padding: '3px 5px',
 });

@@ -1,4 +1,4 @@
-import { style } from "typestyle";
+import { style } from 'typestyle';
 export const Datetime = style({
-    position:'relative'
-})
+  position: 'relative',
+});

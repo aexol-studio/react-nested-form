@@ -16,7 +16,7 @@ export const Option: React.FC<FieldDefinition<'option'>> = ({
   const [showAll, setShowAll] = useState(false);
 
   const changeValue = (el: string) => {
-    setActiveValue(el)
+    setActiveValue(el);
     onChange(el);
   };
 
@@ -32,26 +32,42 @@ export const Option: React.FC<FieldDefinition<'option'>> = ({
 
   return (
     <div className={styles.OptionContainer} style={style}>
-      {(!prefferedOptions || prefferedOptions.length === 0 || showAll) && options.map(el => {
+      {(!prefferedOptions || prefferedOptions.length === 0 || showAll) &&
+        options.map((el) => {
           return (
-              <button key={el.value} onClick={() => changeValue(el.value)} className={classnames(styles.Option, {
-              active: activeValue === el.value})}>{el.label}</button>
-          )
-      })}
-      {prefferedOptions && prefferedOptions.length > 0 && !showAll && <div className={styles.PrefferedOptionsContainer}>
-        <div className={styles.OptionContainer}>
-          {
-            prefferedOptions.map(el => {
+            <button
+              key={el.value}
+              onClick={() => changeValue(el.value)}
+              className={classnames(styles.Option, {
+                active: activeValue === el.value,
+              })}
+            >
+              {el.label}
+            </button>
+          );
+        })}
+      {prefferedOptions && prefferedOptions.length > 0 && !showAll && (
+        <div className={styles.PrefferedOptionsContainer}>
+          <div className={styles.OptionContainer}>
+            {prefferedOptions.map((el) => {
               return (
-                  <button key={el.value} onClick={() => changeValue(el.value)} className={classnames(styles.Option, {
-                  active: activeValue === el.value})}>{el.label}</button>
-              )
-          })}
+                <button
+                  key={el.value}
+                  onClick={() => changeValue(el.value)}
+                  className={classnames(styles.Option, {
+                    active: activeValue === el.value,
+                  })}
+                >
+                  {el.label}
+                </button>
+              );
+            })}
+          </div>
+          <button className={styles.ShowMoreButton} onClick={() => setShowAll(true)}>
+            {showMoreText}
+          </button>
         </div>
-        <button className={styles.ShowMoreButton} onClick={() => setShowAll(true)}>
-          {showMoreText}
-        </button>
-      </div>}
+      )}
     </div>
   );
 };

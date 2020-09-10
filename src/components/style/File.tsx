@@ -1,3 +1,3 @@
-import { style } from "typestyle";
+import { style } from 'typestyle';
 
-export const InputFile = style({})
+export const InputFile = style({});

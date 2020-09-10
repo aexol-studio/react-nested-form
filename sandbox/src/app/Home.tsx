@@ -54,12 +54,15 @@ export const BigInput: typeof styles.Input = {
 
 export const OptionStyles: typeof styles.Option = {
   ...styles.Option,
-  Option: classes(styles.Option.Option, style({
-    padding: '5px 30px',
-    fontSize: 20,
-    color: 'red',
-    textTransform: 'uppercase',
-  })),
+  Option: classes(
+    styles.Option.Option,
+    style({
+      padding: '5px 30px',
+      fontSize: 20,
+      color: 'red',
+      textTransform: 'uppercase',
+    })
+  ),
 };
 
 export const RedAutoSuggest: typeof styles.Autosuggest = {
@@ -136,6 +139,15 @@ export class Home extends React.Component<{}, HomeState> {
               required: true,
             },
             {
+              fieldType: 'boolean',
+              name: 'tick',
+              content: {
+                description: 'need to be ticked',
+                descriptionPosition: 'left',
+              },
+              required: true,
+            },
+            {
               fieldType: 'autosuggest',
               name: 'suggestions',
               content: {
@@ -201,7 +213,7 @@ export class Home extends React.Component<{}, HomeState> {
               name: 'option',
               content: {
                 options: opts,
-                prefferedOptions: opts.slice(0,2),
+                prefferedOptions: opts.slice(0, 2),
                 showMoreText: 'more options',
                 styles: OptionStyles,
               },
