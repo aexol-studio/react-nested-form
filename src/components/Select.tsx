@@ -13,6 +13,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
   search,
   styles: overrideStyles,
   style = {},
+  disabled = false,
 }) => {
   const [state, setState] = useState({
     isOpen: false,
@@ -81,7 +82,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
   let selectOptions = [...options].filter((o) => o.value !== fieldValue);
 
   return (
-    <div className={styles.MultiSelect} style={style}>
+    <div className={classnames(styles.MultiSelect, { disabled: disabled })} style={style}>
       {state.isOpen && (
         <div
           onClick={() => setState({ ...state, isOpen: false })}

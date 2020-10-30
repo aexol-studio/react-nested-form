@@ -12,6 +12,7 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
   placeholder,
   styles: overrideStyles,
   style = {},
+  disabled = false,
 }) => {
   const [state, setState] = useState({
     isOpen: false,
@@ -65,7 +66,7 @@ export const MultiSelect: React.FC<FieldDefinition<'multiselect'>> = ({
   }
 
   return (
-    <div className={styles.MultiSelect} style={style}>
+    <div className={classnames(styles.MultiSelect, { disabled: disabled })} style={style}>
       {state.isOpen && (
         <div
           onClick={() => setState({ ...state, isOpen: false })}

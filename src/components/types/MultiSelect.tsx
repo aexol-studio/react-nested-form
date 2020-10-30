@@ -11,4 +11,5 @@ export type SelectInterface = {
   noSort?: boolean;
   search?: boolean;
   label?: string;
+  disabled?: boolean;
 };

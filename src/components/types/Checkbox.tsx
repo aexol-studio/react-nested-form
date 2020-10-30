@@ -4,4 +4,5 @@ export type CheckboxInterface = {
   description?: string;
   descriptionPosition?: 'right' | 'left';
   styles?: typeof styles;
+  onCheck?: (e: boolean) => void;
 };

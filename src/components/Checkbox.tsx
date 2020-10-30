@@ -10,6 +10,7 @@ export const Checkbox: React.FC<FieldDefinition<'boolean'>> = ({
   description,
   descriptionPosition,
   styles: overrideStyles,
+  onCheck,
 }) => {
   let styles = {
     ...importedStyle,
@@ -25,6 +26,9 @@ export const Checkbox: React.FC<FieldDefinition<'boolean'>> = ({
       className={styles.Checkbox}
       onClick={() => {
         onChange(!value);
+        if (onCheck) {
+          onCheck(!value);
+        }
       }}
     >
       {description && descriptionPosition === 'left' && (

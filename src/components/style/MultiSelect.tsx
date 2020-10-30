@@ -1,6 +1,12 @@
 import { style } from 'typestyle';
 export const MultiSelect = style({
   position: 'relative',
+  $nest: {
+    '&.disabled': {
+      pointerEvents: 'none',
+      opacity: 0.8,
+    },
+  },
 });
 
 export const holderSelect = style({
