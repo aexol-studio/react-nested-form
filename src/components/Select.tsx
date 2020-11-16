@@ -76,9 +76,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
       ...overrideStyles,
     };
   }
-  if (!fieldValue) {
-    fieldValue = null;
-  }
+
   let selectOptions = [...options].filter((o) => o.value !== fieldValue);
 
   return (
@@ -108,7 +106,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
         })}
       >
         <div className={styles.holderValue}>
-          {fieldValue ? (
+          {fieldValue !== undefined && fieldValue !== null ? (
             search ? (
               <div
                 className={classnames({
@@ -118,7 +116,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
               >
                 <span className={styles.valueChoosen}>
                   {options.find((o) => o.value === fieldValue)
-                    ? options.find((o) => o.value === fieldValue)!.label
+                    ? options.find((o) => o.value === fieldValue)?.label
                     : 'Error - no value'}
                 </span>
                 <span
@@ -141,7 +139,7 @@ export const Select: React.FC<FieldDefinition<'select'>> = ({
               >
                 <span className={styles.valueChoosen}>
                   {options.find((o) => o.value === fieldValue)
-                    ? options.find((o) => o.value === fieldValue)!.label
+                    ? options.find((o) => o.value === fieldValue)?.label
                     : 'Error - no value'}
                 </span>
               </div>

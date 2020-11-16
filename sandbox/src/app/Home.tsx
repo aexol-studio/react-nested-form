@@ -224,6 +224,7 @@ export class Home extends React.Component<{}, HomeState> {
               content: {
                 maxYear: 2030,
                 minYear: new Date().getFullYear(),
+                initialValue: '2020-11-16T14:35:12.107Z',
               },
             },
             {
