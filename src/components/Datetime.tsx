@@ -49,7 +49,7 @@ export const Datetime: React.FC<FieldDefinition<'datetime'>> = ({
         value={currentValue.format('k:m')}
         onChange={(e) => {
           const [hour, minutes] = e.split(':');
-          const changedValue = value.hour(parseInt(hour)).minute(parseInt(minutes));
+          const changedValue = currentValue.hour(parseInt(hour)).minute(parseInt(minutes));
           onChange(changedValue);
           setCurrentValue(changedValue);
         }}
