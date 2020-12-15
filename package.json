@@ -1,6 +1,6 @@
 {
   "name": "nested-form",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "private": false,
   "description": "React nested form",
   "main": "lib/index.js",
