@@ -5,5 +5,6 @@ export type DateInterface = {
   minYear?: number;
   maxYear?: number;
   label?: string;
+  locale?: 'pl' | 'en';
   styles?: typeof styles;
 };

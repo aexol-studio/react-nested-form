@@ -11,6 +11,7 @@ export const Date: React.FC<FieldDefinition<'date'>> = ({
   maxYear = 2050,
   value = moment(),
   name,
+  locale = 'en',
 }) => {
   let styles = {
     ...importedStyle,
@@ -22,7 +23,10 @@ export const Date: React.FC<FieldDefinition<'date'>> = ({
     };
   }
   const val = value as moment.Moment;
-  const months = moment.months().map((v, i) => ({ label: v, value: i + 1 }));
+  const months = moment
+    .localeData(locale)
+    .months()
+    .map((v, i) => ({ label: v, value: i + 1 }));
   const currentMonth = val.month() + 1;
   const currentYear = val.year();
   const currentDay = val.date();

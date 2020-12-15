@@ -13,6 +13,7 @@ export const Datetime: React.FC<FieldDefinition<'datetime'>> = ({
   name,
   minYear,
   maxYear,
+  locale,
 }) => {
   let styles = {
     ...importedStyle,
@@ -38,6 +39,7 @@ export const Datetime: React.FC<FieldDefinition<'datetime'>> = ({
         value={currentValue}
         minYear={minYear}
         maxYear={maxYear}
+        locale={locale}
         onChange={(e) => {
           onChange(e);
           setCurrentValue(e);
